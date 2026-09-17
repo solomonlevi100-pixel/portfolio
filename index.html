@@ -11,10 +11,9 @@
             theme: {
                 extend: {
                     colors: {
-                        dark: '#0a0a0c',
-                        cardDark: '#121217',
+                        dark: '#020305',
+                        cardDark: '#050608',
                         accent: '#c084fc',
-                        accentGlow: '#e879f9'
                     },
                     fontFamily: {
                         sans: ['Inter', 'sans-serif'],
@@ -27,100 +26,212 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
-        body { font-family: 'Inter', sans-serif; background-color: #0a0a0c; color: #f3f4f6; }
-        .glass { background: rgba(18, 18, 23, 0.7); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.08); }
-        .glow-text { text-shadow: 0 0 20px rgba(192, 132, 252, 0.4); }
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: #020305; 
+            color: #94a3b8; /* Balanced, readable slate-400 */
+            overflow-x: hidden; 
+        }
+
+        /* Clean Grey Professional Grid */
+        .bg-grid-pattern {
+            background-size: 3rem 3rem;
+            background-image: 
+                linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+        }
+
+        .glass { 
+            background: rgba(5, 6, 8, 0.9); 
+            backdrop-filter: blur(16px); 
+            border: 1px solid rgba(255, 255, 255, 0.02); 
+        }
+
+        /* Complex Interactive Card Hover */
+        .complex-card {
+            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.5s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.5s ease;
+        }
+        .complex-card:hover {
+            transform: translateY(-4px) scale(1.005);
+            border-color: rgba(192, 132, 252, 0.12);
+            box-shadow: 0 15px 30px -10px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Advanced Scroll Animation Initial States */
+        .reveal-on-scroll {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal-on-scroll.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @keyframes floatSlow {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-6px) rotate(0.2deg); }
+        }
+        .animate-float {
+            animation: floatSlow 7s ease-in-out infinite;
+        }
+
+        /* Low-Glare Ambient Orb */
+        #autonomous-spotlight {
+            pointer-events: none;
+            position: fixed;
+            width: 500px;
+            height: 500px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(192, 132, 252, 0.012) 0%, rgba(192, 132, 252, 0) 70%);
+            transform: translate(-50%, -50%);
+            transition: left 1.2s cubic-bezier(0.16, 1, 0.3, 1), top 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: 0;
+        }
+
+        /* Dimmed & Balanced Purple-Pink Glyphs */
+        @keyframes glyphSequenceDim {
+            0%, 100% { opacity: 0.35; }
+            50% { opacity: 0.75; }
+        }
+
+        .glyph-bar {
+            background: #c084fc; /* Purple-Pink */
+            opacity: 0.5;
+            box-shadow: 0 0 10px rgba(192, 132, 252, 0.25);
+            transition: all 0.4s ease;
+        }
+        
+        .glyph-active {
+            animation: glyphSequenceDim 2.5s ease-in-out infinite;
+            background: #c084fc;
+            opacity: 0.75;
+            box-shadow: 0 0 14px rgba(192, 132, 252, 0.4);
+        }
+
+        .glyph-segment {
+            height: 2px;
+            background: rgba(255, 255, 255, 0.2);
+            transition: background 0.3s ease;
+        }
+        .glyph-segment.lit {
+            background: #c084fc;
+            opacity: 0.7;
+            box-shadow: 0 0 8px rgba(192, 132, 252, 0.4);
+        }
     </style>
 </head>
-<body class="bg-dark text-slate-100 min-h-screen selection:bg-purple-500 selection:text-white">
+<body class="bg-dark text-slate-400 min-h-screen bg-grid-pattern selection:bg-purple-950 selection:text-slate-200 relative">
+
+    <!-- Ambient Orb -->
+    <div id="autonomous-spotlight"></div>
 
     <!-- Navigation -->
-    <header class="fixed top-0 left-0 right-0 z-50 glass border-b border-white/10">
+    <header class="fixed top-0 left-0 right-0 z-50 glass border-b border-white/[0.02] transition-all duration-300">
+        <div id="glyph-header-bar" class="h-[2px] w-full bg-gradient-to-r from-transparent via-purple-400/40 to-transparent shadow-[0_0_10px_rgba(192,132,252,0.3)]"></div>
+        
         <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-            <a href="index.html" class="font-mono font-bold tracking-wider text-lg text-white hover:text-purple-400 transition-colors">
-                SOL_01 <span class="text-purple-500">//</span>
+            <a href="index.html" class="font-mono font-medium tracking-wider text-sm text-slate-300 hover:text-purple-400 transition-colors flex items-center space-x-2 group">
+                <span class="group-hover:tracking-widest transition-all duration-300">SOL_01</span> 
+                <span class="text-purple-500/60">//</span>
             </a>
-            <nav class="hidden md:flex items-center space-x-8 text-sm font-medium text-slate-300">
-                <a href="index.html#home" class="hover:text-white transition-colors">Home</a>
-                <a href="index.html#about" class="hover:text-white transition-colors">About</a>
-                <a href="index.html#projects" class="hover:text-white transition-colors">Projects</a>
-                <a href="index.html#passions" class="hover:text-white transition-colors">Passions</a>
-                <a href="index.html#recognition" class="hover:text-white transition-colors">Recognition</a>
-                <a href="index.html#contact" class="px-4 py-2 rounded-full bg-purple-600 hover:bg-purple-500 text-white transition-all shadow-lg shadow-purple-500/20">Get in Touch</a>
+            <nav class="hidden md:flex items-center space-x-8 text-xs font-mono text-slate-400">
+                <a href="#home" class="hover:text-slate-200 transition-colors duration-200">Home</a>
+                <a href="#about" class="hover:text-slate-200 transition-colors duration-200">About</a>
+                <a href="#projects" class="hover:text-slate-200 transition-colors duration-200">Projects</a>
+                <a href="#passions" class="hover:text-slate-200 transition-colors duration-200">Passions</a>
+                <a href="#recognition" class="hover:text-slate-200 transition-colors duration-200">Recognition</a>
+                <a href="#contact" class="px-3.5 py-1.5 rounded-md bg-black/40 border border-white/5 hover:border-purple-500/20 text-slate-300 hover:text-slate-100 transition-all duration-300">Get in Touch</a>
             </nav>
-            <button id="menu-btn" class="md:hidden text-slate-300 hover:text-white focus:outline-none">
-                <i data-lucide="menu" class="w-6 h-6"></i>
+            <button id="menu-btn" class="md:hidden text-slate-400 hover:text-slate-200 focus:outline-none">
+                <i data-lucide="menu" class="w-5 h-5"></i>
             </button>
         </div>
-        <div id="mobile-menu" class="hidden md:hidden glass border-t border-white/10 px-6 py-6 space-y-4">
-            <a href="index.html#home" class="block text-slate-300 hover:text-white">Home</a>
-            <a href="index.html#about" class="block text-slate-300 hover:text-white">About</a>
-            <a href="index.html#projects" class="block text-slate-300 hover:text-white">Projects</a>
-            <a href="index.html#passions" class="block text-slate-300 hover:text-white">Passions</a>
-            <a href="index.html#recognition" class="block text-slate-300 hover:text-white">Recognition</a>
-            <a href="index.html#contact" class="block text-center py-2.5 rounded-lg bg-purple-600 text-white font-medium">Get in Touch</a>
+        <div id="mobile-menu" class="hidden md:hidden glass border-t border-white/[0.02] px-6 py-6 space-y-4 font-mono text-xs">
+            <a href="#home" class="block text-slate-400 hover:text-slate-200">Home</a>
+            <a href="#about" class="block text-slate-400 hover:text-slate-200">About</a>
+            <a href="#projects" class="block text-slate-400 hover:text-slate-200">Projects</a>
+            <a href="#passions" class="block text-slate-400 hover:text-slate-200">Passions</a>
+            <a href="#recognition" class="block text-slate-400 hover:text-slate-200">Recognition</a>
+            <a href="#contact" class="block text-center py-2 rounded bg-black/40 border border-white/5 text-slate-300">Get in Touch</a>
         </div>
     </header>
 
     <!-- Hero Section -->
-    <section id="home" class="min-h-screen flex items-center justify-center pt-28 pb-16 px-6 relative overflow-hidden">
-        <div class="absolute inset-0 bg-[linear-gradient(to_right,#1f293710_1px,transparent_1px),linear-gradient(to_bottom,#1f293710_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)] pointer-events-none"></div>
-        <div class="max-w-4xl mx-auto text-center relative z-10 space-y-8">
-            <div class="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full glass text-xs font-mono text-purple-400 border border-purple-500/20">
-                <span class="w-2 h-2 rounded-full bg-purple-500 animate-pulse"></span>
+    <section id="home" class="min-h-screen flex items-center justify-center pt-28 pb-16 px-6 relative z-10 spotlight-target" data-section-id="home">
+        <div class="max-w-4xl mx-auto text-center space-y-8">
+            <div class="flex items-center justify-center space-x-1.5 mb-2" id="glyph-matrix-hero">
+                <div class="w-3 h-1 glyph-segment lit rounded-full"></div>
+                <div class="w-6 h-1 glyph-segment lit rounded-full"></div>
+                <div class="w-12 h-1 glyph-segment lit rounded-full"></div>
+                <div class="w-6 h-1 glyph-segment rounded-full"></div>
+                <div class="w-3 h-1 glyph-segment rounded-full"></div>
+            </div>
+
+            <div class="inline-flex items-center space-x-2 px-3.5 py-1 rounded-full glass text-xs font-mono text-slate-400 border border-white/[0.03] animate-float">
+                <span class="w-1.5 h-1.5 rounded-full bg-purple-400/70"></span>
                 <span>SOL_01 / COMPUTE + RESONATE</span>
             </div>
-            <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-white leading-tight">
-                I build things that <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-fuchsia-500 glow-text">compute</span> and things that <span class="text-transparent bg-clip-text bg-gradient-to-r from-fuchsia-400 to-pink-400">resonate</span>.
+            
+            <h1 class="text-3xl sm:text-5xl lg:text-6xl font-semibold tracking-tight text-slate-200 leading-tight">
+                I build systems that <span class="text-white font-medium">compute</span> and instruments that <span class="text-white font-medium">resonate</span>.
             </h1>
-            <p class="text-lg sm:text-xl text-slate-400 max-w-2xl mx-auto leading-relaxed font-light">
-                I’m Solomon Levi — an 18-year-old creator working at the intersection of computer science, physics, and advanced audio systems.
+            
+            <p class="text-base sm:text-lg text-slate-400 max-w-xl mx-auto leading-relaxed font-light">
+                Solomon Levi — an 18-year-old creator working at the intersection of computer science, physical sciences, and professional audio architecture.
             </p>
-            <div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
-                <a href="#projects" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-medium transition-all shadow-lg shadow-purple-600/30 flex items-center justify-center space-x-2 group">
+            
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4 font-mono text-xs">
+                <a href="#projects" class="w-full sm:w-auto px-6 py-3 rounded-lg bg-black/50 border border-white/[0.04] hover:border-purple-500/20 text-slate-300 hover:text-slate-100 transition-all duration-300 flex items-center justify-center space-x-2 group">
                     <span>View Projects</span>
-                    <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+                    <i data-lucide="arrow-right" class="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform duration-300 text-slate-400"></i>
                 </a>
-                <a href="#contact" class="w-full sm:w-auto px-8 py-4 rounded-xl glass hover:bg-white/10 text-white font-medium transition-all border border-white/10 flex items-center justify-center">
+                <a href="#contact" class="w-full sm:w-auto px-6 py-3 rounded-lg glass hover:bg-white/[0.02] text-slate-400 hover:text-slate-200 transition-all duration-300 border border-white/[0.02] flex items-center justify-center">
                     Get in Touch
                 </a>
             </div>
         </div>
     </section>
 
-    <!-- About / Education Section -->
-    <section id="about" class="py-24 px-6 border-t border-white/5 bg-dark/50">
+    <!-- About Section -->
+    <section id="about" class="py-28 px-6 border-t border-white/[0.02] relative z-10 spotlight-target" data-section-id="about">
+        <div class="max-w-6xl mx-auto mb-10 flex items-center space-x-2">
+            <div class="h-[2px] w-14 bg-purple-400/50 glyph-bar"></div>
+            <div class="h-[2px] w-3 bg-purple-400/50 glyph-bar"></div>
+            <div class="h-[2px] w-6 bg-purple-400/50 glyph-bar"></div>
+        </div>
+
         <div class="max-w-6xl mx-auto">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-                <div class="space-y-6">
-                    <h2 class="text-xs font-mono uppercase tracking-widest text-purple-400">Background & Roots</h2>
-                    <h3 class="text-3xl font-bold text-white">Engineering logic meets acoustic artistry.</h3>
-                    <p class="text-slate-400 leading-relaxed">
-                        Fresh out of the ISC curriculum with a rigorous foundation in physics, mathematics, and computer science, I approach technical challenges with structural clarity and creative precision.
+                <div class="space-y-6 reveal-on-scroll">
+                    <div class="inline-block font-mono text-xs uppercase tracking-wider text-slate-400 px-2.5 py-0.5 rounded bg-black/40 border border-white/[0.03]">Background & Roots</div>
+                    <h3 class="text-2xl sm:text-3xl font-semibold text-slate-200 tracking-tight">Engineering logic meets acoustic precision.</h3>
+                    <p class="text-slate-400 leading-relaxed font-light text-sm sm:text-base">
+                        Grounded in rigorous ISC coursework with a focus on physics, mathematics, and software design, approaching technical work with structured workflows and analytical clarity.
                     </p>
                 </div>
-                <div class="glass p-8 rounded-2xl border border-white/10 space-y-6">
-                    <h4 class="font-mono text-sm text-purple-400 uppercase tracking-wider">Core Domains</h4>
+                <div class="glass p-7 rounded-xl border border-white/[0.02] space-y-6 shadow-lg reveal-on-scroll relative overflow-hidden" style="transition-delay: 150ms;">
+                    <h4 class="font-mono text-xs text-slate-400 uppercase tracking-wider">Core Disciplines</h4>
                     <div class="space-y-4">
-                        <div class="flex items-start space-x-4">
-                            <div class="p-3 rounded-xl bg-purple-500/10 text-purple-400 border border-purple-500/20"><i data-lucide="cpu" class="w-6 h-6"></i></div>
+                        <div class="flex items-start space-x-3.5 group">
+                            <div class="p-2.5 rounded-lg bg-black/40 text-slate-300 border border-white/[0.03]"><i data-lucide="cpu" class="w-4 h-4"></i></div>
                             <div>
-                                <h5 class="font-semibold text-white">Computer Science & Algorithms</h5>
-                                <p class="text-sm text-slate-400">Building efficient software, clean code architectures, and solving complex computational logic.</p>
+                                <h5 class="font-medium text-slate-200 text-sm">Computer Science & Algorithms</h5>
+                                <p class="text-xs text-slate-400 mt-0.5">Software architecture and structural systems design.</p>
                             </div>
                         </div>
-                        <div class="flex items-start space-x-4">
-                            <div class="p-3 rounded-xl bg-fuchsia-500/10 text-fuchsia-400 border border-fuchsia-500/20"><i data-lucide="music" class="w-6 h-6"></i></div>
+                        <div class="flex items-start space-x-3.5 group">
+                            <div class="p-2.5 rounded-lg bg-black/40 text-slate-300 border border-white/[0.03]"><i data-lucide="music" class="w-4 h-4"></i></div>
                             <div>
-                                <h5 class="font-semibold text-white">Audio & Sound Synthesis</h5>
-                                <p class="text-sm text-slate-400">Custom workstation configurations, high-res sample libraries, and workstation sound design.</p>
+                                <h5 class="font-medium text-slate-200 text-sm">Audio & Sound Synthesis</h5>
+                                <p class="text-xs text-slate-400 mt-0.5">Hardware workstation setup, piano sampling, and synthesis configuration.</p>
                             </div>
                         </div>
-                        <div class="flex items-start space-x-4">
-                            <div class="p-3 rounded-xl bg-pink-500/10 text-pink-400 border border-pink-500/20"><i data-lucide="atom" class="w-6 h-6"></i></div>
+                        <div class="flex items-start space-x-3.5 group">
+                            <div class="p-2.5 rounded-lg bg-black/40 text-slate-300 border border-white/[0.03]"><i data-lucide="atom" class="w-4 h-4"></i></div>
                             <div>
-                                <h5 class="font-semibold text-white">Physics & Analysis</h5>
-                                <p class="text-sm text-slate-400">Analytical problem solving grounded in fundamental physical laws and quantitative reasoning.</p>
+                                <h5 class="font-medium text-slate-200 text-sm">Physics & Quantitative Analysis</h5>
+                                <p class="text-xs text-slate-400 mt-0.5">Circuit behavior, system dynamics, and quantitative testing.</p>
                             </div>
                         </div>
                     </div>
@@ -130,50 +241,55 @@
     </section>
 
     <!-- Projects Section -->
-    <section id="projects" class="py-24 px-6 border-t border-white/5">
-        <div class="max-w-6xl mx-auto space-y-12">
-            <div class="text-center space-y-4">
-                <h2 class="text-xs font-mono uppercase tracking-widest text-purple-400">Portfolio Work</h2>
-                <h3 class="text-3xl sm:text-4xl font-bold text-white">Featured Projects</h3>
-                <p class="text-slate-400 max-w-xl mx-auto">A selection of technical builds, lab practicals, and hardware explorations.</p>
+    <section id="projects" class="py-28 px-6 border-t border-white/[0.02] relative z-10 spotlight-target" data-section-id="projects">
+        <div class="max-w-6xl mx-auto mb-10 flex items-center justify-end space-x-2">
+            <div class="h-[2px] w-8 bg-purple-400/50 glyph-bar"></div>
+            <div class="h-[2px] w-20 bg-purple-400/50 glyph-bar"></div>
+        </div>
+
+        <div class="max-w-6xl mx-auto space-y-10">
+            <div class="text-center space-y-2.5 reveal-on-scroll">
+                <div class="inline-block font-mono text-xs uppercase tracking-wider text-slate-400 px-2.5 py-0.5 rounded bg-black/40 border border-white/[0.03]">Portfolio Work</div>
+                <h3 class="text-2xl sm:text-3xl font-semibold text-slate-200 tracking-tight">Featured Technical Projects</h3>
+                <p class="text-slate-400 max-w-md mx-auto text-sm font-light">Laboratory practicals, analytical builds, and hardware system explorations.</p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <!-- Project Card 1 linked to Subpage -->
-                <a href="rc-circuits.html" class="glass rounded-2xl p-8 border border-white/10 hover:border-purple-500/50 transition-all group flex flex-col justify-between block">
-                    <div class="space-y-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Project Card 1 -->
+                <a href="rc-circuits.html" class="glass complex-card rounded-xl p-7 border border-white/[0.02] flex flex-col justify-between block group reveal-on-scroll" style="transition-delay: 100ms;">
+                    <div class="space-y-3">
                         <div class="flex items-center justify-between">
-                            <span class="font-mono text-xs text-purple-400 px-3 py-1 rounded-full bg-purple-500/10 border border-purple-500/20">AU QUASAR Studio</span>
-                            <i data-lucide="external-link" class="w-5 h-5 text-slate-500 group-hover:text-purple-400 transition-colors"></i>
+                            <span class="font-mono text-xs text-slate-400 px-2.5 py-0.5 rounded bg-black/40 border border-white/[0.03]">AU QUASAR Studio</span>
+                            <i data-lucide="external-link" class="w-4 h-4 text-slate-400 group-hover:text-slate-200 transition-colors"></i>
                         </div>
-                        <h4 class="text-xl font-bold text-white group-hover:text-purple-400 transition-colors">RC Circuits & Diode Clippers Practical</h4>
-                        <p class="text-slate-400 text-sm leading-relaxed">
-                            Hands-on analog waveform shaping, time constants ($\tau = RC$), and voltage threshold testing using professional lab equipment (Fluke, GW Instek).
+                        <h4 class="text-xl font-medium text-slate-200 group-hover:text-white transition-colors">RC Circuits & Diode Clippers Practical</h4>
+                        <p class="text-slate-400 text-sm leading-relaxed font-light">
+                            Analog waveform testing, time constants (τ = RC), and voltage threshold evaluations utilizing precise instrumentation hardware.
                         </p>
                     </div>
-                    <div class="flex flex-wrap gap-2 pt-6 mt-6 border-t border-white/5 text-xs font-mono text-slate-300">
-                        <span class="px-2.5 py-1 rounded bg-white/5">Oscilloscope</span>
-                        <span class="px-2.5 py-1 rounded bg-white/5">Analog Electronics</span>
-                        <span class="px-2.5 py-1 rounded bg-white/5">Waveform Analysis</span>
+                    <div class="flex flex-wrap gap-2 pt-5 mt-5 border-t border-white/[0.02] text-xs font-mono text-slate-400">
+                        <span class="px-2.5 py-1 rounded bg-black/30 border border-white/[0.02]">Oscilloscope</span>
+                        <span class="px-2.5 py-1 rounded bg-black/30 border border-white/[0.02]">Analog Electronics</span>
+                        <span class="px-2.5 py-1 rounded bg-black/30 border border-white/[0.02]">Waveforms</span>
                     </div>
                 </a>
 
-                <!-- Project Card 2 linked to Induction Subpage -->
-                <a href="induction-cad-lidar.html" class="glass rounded-2xl p-8 border border-white/10 hover:border-fuchsia-500/50 transition-all group flex flex-col justify-between block">
-                    <div class="space-y-4">
+                <!-- Project Card 2 -->
+                <a href="induction-cad-lidar.html" class="glass complex-card rounded-xl p-7 border border-white/[0.02] flex flex-col justify-between block group reveal-on-scroll" style="transition-delay: 200ms;">
+                    <div class="space-y-3">
                         <div class="flex items-center justify-between">
-                            <span class="font-mono text-xs text-fuchsia-400 px-3 py-1 rounded-full bg-fuchsia-500/10 border border-fuchsia-500/20">Induction Program</span>
-                            <i data-lucide="external-link" class="w-5 h-5 text-slate-500 group-hover:text-fuchsia-400 transition-colors"></i>
+                            <span class="font-mono text-xs text-slate-400 px-2.5 py-0.5 rounded bg-black/40 border border-white/[0.03]">Induction Program</span>
+                            <i data-lucide="external-link" class="w-4 h-4 text-slate-400 group-hover:text-slate-200 transition-colors"></i>
                         </div>
-                        <h4 class="text-xl font-bold text-white group-hover:text-fuchsia-400 transition-colors">CAD, 3D Printing & LiDAR Systems</h4>
-                        <p class="text-slate-400 text-sm leading-relaxed">
-                            Manual parametric modeling in Autodesk Fusion, G-code slicing workflows in Ultimaker Cura, additive manufacturing on Creality hardware, and 2D/3D LiDAR spatial sensing.
+                        <h4 class="text-xl font-medium text-slate-200 group-hover:text-white transition-colors">CAD, 3D Printing & LiDAR Systems</h4>
+                        <p class="text-slate-400 text-sm leading-relaxed font-light">
+                            Parametric modeling pipelines in Autodesk Fusion, slicing configurations, additive manufacturing, and spatial lidar mapping.
                         </p>
                     </div>
-                    <div class="flex flex-wrap gap-2 pt-6 mt-6 border-t border-white/5 text-xs font-mono text-slate-300">
-                        <span class="px-2.5 py-1 rounded bg-white/5">Autodesk Fusion</span>
-                        <span class="px-2.5 py-1 rounded bg-white/5">Creality 3D</span>
-                        <span class="px-2.5 py-1 rounded bg-white/5">LiDAR Sensors</span>
+                    <div class="flex flex-wrap gap-2 pt-5 mt-5 border-t border-white/[0.02] text-xs font-mono text-slate-400">
+                        <span class="px-2.5 py-1 rounded bg-black/30 border border-white/[0.02]">Autodesk Fusion</span>
+                        <span class="px-2.5 py-1 rounded bg-black/30 border border-white/[0.02]">3D Additive</span>
+                        <span class="px-2.5 py-1 rounded bg-black/30 border border-white/[0.02]">LiDAR</span>
                     </div>
                 </a>
             </div>
@@ -181,66 +297,77 @@
     </section>
 
     <!-- Passions Section -->
-    <section id="passions" class="py-24 px-6 border-t border-white/5 bg-dark/50">
-        <div class="max-w-6xl mx-auto space-y-12">
-            <div class="text-center space-y-4">
-                <h2 class="text-xs font-mono uppercase tracking-widest text-purple-400">Interests & Drive</h2>
-                <h3 class="text-3xl font-bold text-white">Beyond the Screen</h3>
+    <section id="passions" class="py-28 px-6 border-t border-white/[0.02] relative z-10 spotlight-target" data-section-id="passions">
+        <div class="max-w-6xl mx-auto mb-10 flex items-center space-x-2">
+            <div class="h-[2px] w-12 bg-purple-400/50 glyph-bar"></div>
+            <div class="h-[2px] w-12 bg-purple-400/50 glyph-bar"></div>
+        </div>
+
+        <div class="max-w-6xl mx-auto space-y-10">
+            <div class="text-center space-y-2 reveal-on-scroll">
+                <div class="inline-block font-mono text-xs uppercase tracking-wider text-slate-400 px-2.5 py-0.5 rounded bg-black/40 border border-white/[0.03]">Interests & Drive</div>
+                <h3 class="text-2xl sm:text-3xl font-semibold text-slate-200 tracking-tight">Beyond the Screen</h3>
             </div>
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
-                <div class="glass p-6 rounded-xl border border-white/10 space-y-3">
-                    <div class="text-purple-400"><i data-lucide="sliders" class="w-6 h-6"></i></div>
-                    <h4 class="font-semibold text-white">Keyboard & Synthesis</h4>
-                    <p class="text-sm text-slate-400">Exploring custom sound patches, acoustic piano libraries, and expressive hardware setups.</p>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-5">
+                <div class="glass complex-card p-6 rounded-xl border border-white/[0.02] space-y-3 reveal-on-scroll" style="transition-delay: 100ms;">
+                    <div class="text-slate-300"><i data-lucide="sliders" class="w-5 h-5"></i></div>
+                    <h4 class="font-medium text-slate-200 text-base">Keyboard & Synthesis</h4>
+                    <p class="text-xs sm:text-sm text-slate-400 leading-relaxed font-light">Sound patch configurations, digital piano sampling libraries, and hardware setups.</p>
                 </div>
-                <div class="glass p-6 rounded-xl border border-white/10 space-y-3">
-                    <div class="text-fuchsia-400"><i data-lucide="compass" class="w-6 h-6"></i></div>
-                    <h4 class="font-semibold text-white">Applied Physics</h4>
-                    <p class="text-sm text-slate-400">Understanding the fundamental mechanics of wave propagation, acoustics, and system dynamics.</p>
+                <div class="glass complex-card p-6 rounded-xl border border-white/[0.02] space-y-3 reveal-on-scroll" style="transition-delay: 150ms;">
+                    <div class="text-slate-300"><i data-lucide="compass" class="w-5 h-5"></i></div>
+                    <h4 class="font-medium text-slate-200 text-base">Applied Physics</h4>
+                    <p class="text-xs sm:text-sm text-slate-400 leading-relaxed font-light">Investigation into acoustic wave mechanics, physical resonance, and dynamics.</p>
                 </div>
-                <div class="glass p-6 rounded-xl border border-white/10 space-y-3">
-                    <div class="text-pink-400"><i data-lucide="code" class="w-6 h-6"></i></div>
-                    <h4 class="font-semibold text-white">Clean Engineering</h4>
-                    <p class="text-sm text-slate-400">Writing elegant, maintainable code and building robust digital architectures.</p>
+                <div class="glass complex-card p-6 rounded-xl border border-white/[0.02] space-y-3 reveal-on-scroll" style="transition-delay: 200ms;">
+                    <div class="text-slate-300"><i data-lucide="code" class="w-5 h-5"></i></div>
+                    <h4 class="font-medium text-slate-200 text-base">Clean Engineering</h4>
+                    <p class="text-xs sm:text-sm text-slate-400 leading-relaxed font-light">Writing maintainable code and structuring scalable digital architectures.</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Recognition Section -->
-    <section id="recognition" class="py-24 px-6 border-t border-white/5">
-        <div class="max-w-4xl mx-auto text-center space-y-8">
-            <h2 class="text-xs font-mono uppercase tracking-widest text-purple-400">Recognition & Mentorship</h2>
-            <h3 class="text-3xl font-bold text-white">Driven by Excellence</h3>
-            <p class="text-slate-400 max-w-xl mx-auto">
-                Commitment to rigorous academic standards, creative discipline, and continuous self-improvement under exceptional mentorship.
+    <section id="recognition" class="py-28 px-6 border-t border-white/[0.02] relative z-10 spotlight-target" data-section-id="recognition">
+        <div class="max-w-3xl mx-auto text-center space-y-4 reveal-on-scroll">
+            <div class="inline-block font-mono text-xs uppercase tracking-wider text-slate-400 px-2.5 py-0.5 rounded bg-black/40 border border-white/[0.03]">Recognition & Mentorship</div>
+            <h3 class="text-2xl sm:text-3xl font-semibold text-slate-200 tracking-tight">Driven by Discipline & Excellence</h3>
+            <p class="text-slate-400 max-w-md mx-auto text-sm font-light">
+                Commitment to rigorous academic standards, technical execution, and continuous growth under exceptional mentorship.
             </p>
         </div>
     </section>
 
     <!-- Contact & Footer -->
-    <footer id="contact" class="py-20 px-6 border-t border-white/10 bg-dark">
-        <div class="max-w-4xl mx-auto text-center space-y-8">
-            <h2 class="text-xs font-mono uppercase tracking-widest text-purple-400">Get in Touch</h2>
-            <h3 class="text-3xl sm:text-4xl font-bold text-white">Let's Build Something Extraordinary.</h3>
-            <p class="text-slate-400 max-w-md mx-auto">
-                Whether you want to discuss code, physics, or audio architecture, my inbox is always open.
+    <footer id="contact" class="py-20 px-6 border-t border-white/[0.02] bg-dark relative z-10 spotlight-target" data-section-id="contact">
+        <div class="max-w-3xl mx-auto mb-10 flex items-center justify-center space-x-1">
+            <div class="h-[2px] w-8 bg-purple-400/50 glyph-bar"></div>
+            <div class="h-[2px] w-16 bg-purple-400/50 glyph-bar"></div>
+            <div class="h-[2px] w-8 bg-purple-400/50 glyph-bar"></div>
+        </div>
+
+        <div class="max-w-3xl mx-auto text-center space-y-6 reveal-on-scroll">
+            <div class="inline-block font-mono text-xs uppercase tracking-wider text-slate-400 px-2.5 py-0.5 rounded bg-black/40 border border-white/[0.03]">Get in Touch</div>
+            <h3 class="text-2xl sm:text-3xl font-semibold text-slate-200 tracking-tight">Let's Build Something Extraordinary.</h3>
+            <p class="text-slate-400 max-w-sm mx-auto text-sm font-light">
+                Inquiries regarding systems code, physical sciences, or audio architectures are always welcome.
             </p>
-            <div class="pt-4">
-                <a href="mailto:solomonlevi100@gmail.com" class="inline-flex items-center space-x-3 px-8 py-4 rounded-full bg-purple-600 hover:bg-purple-500 text-white font-medium transition-all shadow-lg shadow-purple-500/20">
-                    <i data-lucide="mail" class="w-5 h-5"></i>
+            <div class="pt-1">
+                <a href="mailto:solomonlevi100@gmail.com" class="inline-flex items-center space-x-2.5 px-6 py-3 rounded-lg bg-black/50 border border-white/[0.04] hover:border-purple-500/20 text-slate-300 font-mono text-xs transition-all duration-300">
+                    <i data-lucide="mail" class="w-4 h-4 text-slate-400"></i>
                     <span>solomonlevi100@gmail.com</span>
                 </a>
             </div>
-            <div class="flex items-center justify-center space-x-6 pt-8">
-                <a href="https://github.com/solomonlevi100-pixel" target="_blank" class="p-3 rounded-full glass hover:bg-white/10 text-slate-300 hover:text-white transition-colors flex items-center justify-center" aria-label="GitHub">
-                    <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+            <div class="flex items-center justify-center space-x-5 pt-4">
+                <a href="https://github.com/solomonlevi100-pixel" target="_blank" class="p-2.5 rounded-lg glass hover:bg-white/[0.02] text-slate-400 hover:text-slate-200 transition-colors" aria-label="GitHub">
+                    <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
                 </a>
-                <a href="https://www.linkedin.com/in/solomon-levi-21192042a/" target="_blank" class="p-3 rounded-full glass hover:bg-white/10 text-slate-300 hover:text-white transition-colors flex items-center justify-center" aria-label="LinkedIn">
-                    <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.738-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                <a href="https://www.linkedin.com/in/solomon-levi-21192042a/" target="_blank" class="p-2.5 rounded-lg glass hover:bg-white/[0.02] text-slate-400 hover:text-slate-200 transition-colors" aria-label="LinkedIn">
+                    <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.738-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
                 </a>
             </div>
-            <div class="pt-12 text-xs font-mono text-slate-600 border-t border-white/5">
+            <div class="pt-8 text-xs font-mono text-slate-500 border-t border-white/[0.02]">
                 © <span id="year"></span> Solomon Levi. All rights reserved.
             </div>
         </div>
@@ -249,10 +376,48 @@
     <script>
         lucide.createIcons();
         document.getElementById('year').textContent = new Date().getFullYear();
+
+        const spotlight = document.getElementById('autonomous-spotlight');
+        const sections = document.querySelectorAll('section, footer');
+
+        const spotlightObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const rect = entry.target.getBoundingClientRect();
+                    spotlight.style.left = `${rect.left + rect.width / 2}px`;
+                    spotlight.style.top = `${rect.top + rect.height / 2}px`;
+
+                    document.querySelectorAll('.glyph-bar').forEach(bar => bar.classList.remove('glyph-active'));
+                    entry.target.querySelectorAll('.glyph-bar').forEach(bar => bar.classList.add('glyph-active'));
+                }
+            });
+        }, { threshold: 0.35 });
+
+        sections.forEach(sec => spotlightObserver.observe(sec));
+
+        const matrixSegments = document.querySelectorAll('#glyph-matrix-hero .glyph-segment');
+        let activeSegmentIdx = 0;
+        setInterval(() => {
+            matrixSegments.forEach(seg => seg.classList.remove('lit'));
+            matrixSegments[activeSegmentIdx].classList.add('lit');
+            activeSegmentIdx = (activeSegmentIdx + 1) % matrixSegments.length;
+        }, 800);
+
+        const observer = new IntersectionObserver((entries, obs) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    obs.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.reveal-on-scroll').forEach(el => observer.observe(el));
+
         const menuBtn = document.getElementById('menu-btn');
         const mobileMenu = document.getElementById('mobile-menu');
-        menuBtn.addEventListener('click', () => { mobileMenu.classList.toggle('hidden'); });
-        mobileMenu.querySelectorAll('a').forEach(link => { link.addEventListener('click', () => { mobileMenu.classList.add('hidden'); }); });
+        menuBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+        mobileMenu.querySelectorAll('a').forEach(link => link.addEventListener('click', () => mobileMenu.classList.add('hidden')));
     </script>
 </body>
 </html>
