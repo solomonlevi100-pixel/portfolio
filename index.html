@@ -12,7 +12,7 @@
                 extend: {
                     colors: {
                         dark: '#020305',
-                        cardDark: '#050608',
+                        cardDark: '#07080c',
                         accent: '#c084fc',
                     },
                     fontFamily: {
@@ -33,31 +33,72 @@
             overflow-x: hidden; 
         }
 
-        /* Clean Grey Professional Grid */
-        .bg-grid-pattern {
-            background-size: 3rem 3rem;
-            background-image: 
-                linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
-                linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+        #magnetic-grid-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 0;
         }
 
         .glass { 
-            background: rgba(5, 6, 8, 0.9); 
+            background: rgba(5, 6, 8, 0.85); 
             backdrop-filter: blur(16px); 
-            border: 1px solid rgba(255, 255, 255, 0.02); 
+            border: 1px solid rgba(255, 255, 255, 0.04); 
         }
 
-        /* Complex Interactive Card Hover */
-        .complex-card {
-            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.5s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.5s ease;
-        }
-        .complex-card:hover {
-            transform: translateY(-4px) scale(1.005);
-            border-color: rgba(192, 132, 252, 0.12);
-            box-shadow: 0 15px 30px -10px rgba(0, 0, 0, 0.5);
+        /* High-Impact Interactive Project Cards */
+        .project-card-wrapper {
+            position: relative;
+            border-radius: 1rem;
+            background: linear-gradient(180deg, rgba(192, 132, 252, 0.15) 0%, rgba(255, 255, 255, 0.01) 100%);
+            padding: 1px; /* Creates the border gradient line */
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        /* Advanced Scroll Animation Initial States */
+        .project-card-wrapper::before {
+            content: '';
+            position: absolute;
+            inset: -20px;
+            background: radial-gradient(circle, rgba(192, 132, 252, 0.08) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .project-card {
+            background: #06070a;
+            border-radius: calc(1rem - 1px);
+            transition: background 0.4s ease;
+        }
+
+        .project-card-wrapper:hover {
+            transform: translateY(-6px) scale(1.01);
+            box-shadow: 0 20px 40px -15px rgba(192, 132, 252, 0.25);
+            background: linear-gradient(180deg, rgba(192, 132, 252, 0.5) 0%, rgba(192, 132, 252, 0.1) 100%);
+        }
+
+        .project-card-wrapper:hover::before {
+            opacity: 1;
+        }
+
+        .project-card-wrapper:hover .project-card {
+            background: #090a10;
+        }
+
+        .project-card-wrapper:hover .card-title {
+            color: #ffffff;
+            text-shadow: 0 0 20px rgba(192, 132, 252, 0.4);
+        }
+
+        .project-card-wrapper:hover .card-arrow {
+            transform: translate(2px, -2px);
+            color: #c084fc;
+        }
+
         .reveal-on-scroll {
             opacity: 0;
             transform: translateY(20px);
@@ -76,17 +117,28 @@
             animation: floatSlow 7s ease-in-out infinite;
         }
 
-        /* Low-Glare Ambient Orb */
+        @keyframes pulseGlow {
+            0%, 100% {
+                text-shadow: 0 0 10px rgba(192, 132, 252, 0.15), 0 0 25px rgba(192, 132, 252, 0.05);
+            }
+            50% {
+                text-shadow: 0 0 20px rgba(192, 132, 252, 0.45), 0 0 40px rgba(192, 132, 252, 0.2);
+            }
+        }
+        .animate-pulse-glow {
+            animation: pulseGlow 4s ease-in-out infinite;
+        }
+
         #autonomous-spotlight {
             pointer-events: none;
             position: fixed;
             width: 500px;
             height: 500px;
             border-radius: 50%;
-            background: radial-gradient(circle, rgba(192, 132, 252, 0.012) 0%, rgba(192, 132, 252, 0) 70%);
+            background: radial-gradient(circle, rgba(192, 132, 252, 0.015) 0%, rgba(192, 132, 252, 0) 70%);
             transform: translate(-50%, -50%);
             transition: left 1.2s cubic-bezier(0.16, 1, 0.3, 1), top 1.2s cubic-bezier(0.16, 1, 0.3, 1);
-            z-index: 0;
+            z-index: 1;
         }
 
         @keyframes glyphSequenceDim {
@@ -120,12 +172,11 @@
         }
     </style>
 </head>
-<body class="bg-dark text-slate-400 min-h-screen bg-grid-pattern selection:bg-purple-950 selection:text-slate-200 relative">
+<body class="bg-dark text-slate-400 min-h-screen selection:bg-purple-950 selection:text-slate-200 relative">
 
-    <!-- Ambient Orb -->
+    <canvas id="magnetic-grid-canvas"></canvas>
     <div id="autonomous-spotlight"></div>
 
-    <!-- Navigation -->
     <header class="fixed top-0 left-0 right-0 z-50 glass border-b border-white/[0.02] transition-all duration-300">
         <div id="glyph-header-bar" class="h-[2px] w-full bg-gradient-to-r from-transparent via-purple-400/40 to-transparent shadow-[0_0_10px_rgba(192,132,252,0.3)]"></div>
         
@@ -156,7 +207,6 @@
         </div>
     </header>
 
-    <!-- Hero Section -->
     <section id="home" class="min-h-screen flex items-center justify-center pt-28 pb-16 px-6 relative z-10 spotlight-target" data-section-id="home">
         <div class="max-w-4xl mx-auto text-center space-y-8">
             <div class="flex items-center justify-center space-x-1.5 mb-2" id="glyph-matrix-hero">
@@ -172,7 +222,7 @@
                 <span>SOL_01 / COMPUTE + RESONATE</span>
             </div>
             
-            <h1 class="text-3xl sm:text-5xl lg:text-6xl font-semibold tracking-tight text-slate-200 leading-tight">
+            <h1 class="text-3xl sm:text-5xl lg:text-6xl font-semibold tracking-tight text-slate-200 leading-tight animate-pulse-glow">
                 I build systems that <span class="text-white font-medium">compute</span> and instruments that <span class="text-white font-medium">resonate</span>.
             </h1>
             
@@ -192,7 +242,6 @@
         </div>
     </section>
 
-    <!-- About Section -->
     <section id="about" class="py-28 px-6 border-t border-white/[0.02] relative z-10 spotlight-target" data-section-id="about">
         <div class="max-w-6xl mx-auto mb-10 flex items-center space-x-2">
             <div class="h-[2px] w-14 bg-purple-400/50 glyph-bar"></div>
@@ -204,7 +253,7 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
                 <div class="space-y-6 reveal-on-scroll">
                     <div class="inline-block font-mono text-xs uppercase tracking-wider text-slate-400 px-2.5 py-0.5 rounded bg-black/40 border border-white/[0.03]">Background & Roots</div>
-                    <h3 class="text-2xl sm:text-3xl font-semibold text-slate-200 tracking-tight">Engineering logic meets acoustic precision.</h3>
+                    <h3 class="text-2xl sm:text-3xl font-semibold text-slate-200 tracking-tight animate-pulse-glow">Engineering logic meets acoustic precision.</h3>
                     <p class="text-slate-400 leading-relaxed font-light text-sm sm:text-base">
                         Grounded in rigorous ISC coursework with a focus on physics, mathematics, and software design, approaching technical work with structured workflows and analytical clarity.
                     </p>
@@ -239,7 +288,6 @@
         </div>
     </section>
 
-    <!-- Projects Section -->
     <section id="projects" class="py-28 px-6 border-t border-white/[0.02] relative z-10 spotlight-target" data-section-id="projects">
         <div class="max-w-6xl mx-auto mb-10 flex items-center justify-end space-x-2">
             <div class="h-[2px] w-8 bg-purple-400/50 glyph-bar"></div>
@@ -249,11 +297,10 @@
         <div class="max-w-6xl mx-auto space-y-12">
             <div class="text-center space-y-2.5 reveal-on-scroll">
                 <div class="inline-block font-mono text-xs uppercase tracking-wider text-slate-400 px-2.5 py-0.5 rounded bg-black/40 border border-white/[0.03]">Portfolio Work</div>
-                <h3 class="text-2xl sm:text-3xl font-semibold text-slate-200 tracking-tight">Featured Technical Projects</h3>
+                <h3 class="text-2xl sm:text-3xl font-semibold text-slate-200 tracking-tight animate-pulse-glow">Featured Technical Projects</h3>
                 <p class="text-slate-400 max-w-md mx-auto text-sm font-light">Laboratory practicals, analytical builds, and hardware system explorations.</p>
             </div>
 
-            <!-- Floating Pointer Badge Positioned Directly Above the 2 Projects -->
             <div class="flex justify-center -mb-4 reveal-on-scroll">
                 <div class="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-purple-950/80 border border-purple-500/30 text-purple-300 font-mono text-[10px] tracking-wider shadow-lg animate-bounce">
                     <i data-lucide="arrow-down" class="w-3 h-3 text-purple-400"></i>
@@ -261,49 +308,62 @@
                 </div>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <!-- Project Card 1 -->
-                <a href="rc-circuits.html" class="glass complex-card rounded-xl p-7 border border-white/[0.02] flex flex-col justify-between block group reveal-on-scroll" style="transition-delay: 100ms;">
-                    <div class="space-y-3">
-                        <div class="flex items-center justify-between">
-                            <span class="font-mono text-xs text-slate-400 px-2.5 py-0.5 rounded bg-black/40 border border-white/[0.03]">AU QUASAR Studio</span>
-                            <i data-lucide="external-link" class="w-4 h-4 text-slate-400 group-hover:text-slate-200 transition-colors"></i>
+                <div class="project-card-wrapper reveal-on-scroll" style="transition-delay: 100ms;">
+                    <a href="rc-circuits.html" class="project-card p-7 flex flex-col justify-between h-full block group relative overflow-hidden">
+                        <!-- Top Accent Highlight -->
+                        <div class="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-purple-500/50 to-transparent opacity-60 group-hover:opacity-100 transition-opacity"></div>
+                        
+                        <div class="space-y-4">
+                            <div class="flex items-center justify-between">
+                                <span class="font-mono text-xs text-purple-300/80 px-3 py-1 rounded-full bg-purple-950/40 border border-purple-500/20">AU QUASAR Studio</span>
+                                <div class="w-8 h-8 rounded-full bg-purple-950/30 border border-purple-500/20 flex items-center justify-center group-hover:bg-purple-600/20 transition-all">
+                                    <i data-lucide="arrow-up-right" class="w-4 h-4 text-purple-300 card-arrow transition-transform"></i>
+                                </div>
+                            </div>
+                            <h4 class="card-title text-xl sm:text-2xl font-semibold text-slate-100 tracking-tight transition-colors">Prototyping Non-Linear Analog Waveforms</h4>
+                            <p class="text-slate-400 text-sm leading-relaxed font-light">
+                                Analog waveform testing, time constants (τ = RC), and voltage threshold evaluations utilizing precise instrumentation hardware.
+                            </p>
                         </div>
-                        <h4 class="text-xl font-medium text-slate-200 group-hover:text-white transition-colors">RC Circuits & Diode Clippers Practical</h4>
-                        <p class="text-slate-400 text-sm leading-relaxed font-light">
-                            Analog waveform testing, time constants (τ = RC), and voltage threshold evaluations utilizing precise instrumentation hardware.
-                        </p>
-                    </div>
-                    <div class="flex flex-wrap gap-2 pt-5 mt-5 border-t border-white/[0.02] text-xs font-mono text-slate-400">
-                        <span class="px-2.5 py-1 rounded bg-black/30 border border-white/[0.02]">Oscilloscope</span>
-                        <span class="px-2.5 py-1 rounded bg-black/30 border border-white/[0.02]">Analog Electronics</span>
-                        <span class="px-2.5 py-1 rounded bg-black/30 border border-white/[0.02]">Waveforms</span>
-                    </div>
-                </a>
+                        <div class="flex flex-wrap gap-2 pt-6 mt-6 border-t border-white/[0.04] text-xs font-mono text-slate-300">
+                            <span class="px-3 py-1 rounded-md bg-black/60 border border-white/5 group-hover:border-purple-500/30 transition-colors">Oscilloscope</span>
+                            <span class="px-3 py-1 rounded-md bg-black/60 border border-white/5 group-hover:border-purple-500/30 transition-colors">Analog Electronics</span>
+                            <span class="px-3 py-1 rounded-md bg-black/60 border border-white/5 group-hover:border-purple-500/30 transition-colors">Waveforms</span>
+                        </div>
+                    </a>
+                </div>
 
                 <!-- Project Card 2 -->
-                <a href="induction-cad-lidar.html" class="glass complex-card rounded-xl p-7 border border-white/[0.02] flex flex-col justify-between block group reveal-on-scroll" style="transition-delay: 200ms;">
-                    <div class="space-y-3">
-                        <div class="flex items-center justify-between">
-                            <span class="font-mono text-xs text-slate-400 px-2.5 py-0.5 rounded bg-black/40 border border-white/[0.03]">Induction Program</span>
-                            <i data-lucide="external-link" class="w-4 h-4 text-slate-400 group-hover:text-slate-200 transition-colors"></i>
+                <div class="project-card-wrapper reveal-on-scroll" style="transition-delay: 200ms;">
+                    <a href="induction-cad-lidar.html" class="project-card p-7 flex flex-col justify-between h-full block group relative overflow-hidden">
+                        <!-- Top Accent Highlight -->
+                        <div class="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-purple-500/50 to-transparent opacity-60 group-hover:opacity-100 transition-opacity"></div>
+
+                        <div class="space-y-4">
+                            <div class="flex items-center justify-between">
+                                <span class="font-mono text-xs text-purple-300/80 px-3 py-1 rounded-full bg-purple-950/40 border border-purple-500/20">Induction Program</span>
+                                <div class="w-8 h-8 rounded-full bg-purple-950/30 border border-purple-500/20 flex items-center justify-center group-hover:bg-purple-600/20 transition-all">
+                                    <i data-lucide="arrow-up-right" class="w-4 h-4 text-purple-300 card-arrow transition-transform"></i>
+                                </div>
+                            </div>
+                            <h4 class="card-title text-xl sm:text-2xl font-semibold text-slate-100 tracking-tight transition-colors">Spatial Mapping & Rapid Prototyping Pipeline</h4>
+                            <p class="text-slate-400 text-sm leading-relaxed font-light">
+                                Parametric modeling pipelines in Autodesk Fusion, slicing configurations, additive manufacturing, and spatial lidar mapping.
+                            </p>
                         </div>
-                        <h4 class="text-xl font-medium text-slate-200 group-hover:text-white transition-colors">CAD, 3D Printing & LiDAR Systems</h4>
-                        <p class="text-slate-400 text-sm leading-relaxed font-light">
-                            Parametric modeling pipelines in Autodesk Fusion, slicing configurations, additive manufacturing, and spatial lidar mapping.
-                        </p>
-                    </div>
-                    <div class="flex flex-wrap gap-2 pt-5 mt-5 border-t border-white/[0.02] text-xs font-mono text-slate-400">
-                        <span class="px-2.5 py-1 rounded bg-black/30 border border-white/[0.02]">Autodesk Fusion</span>
-                        <span class="px-2.5 py-1 rounded bg-black/30 border border-white/[0.02]">3D Additive</span>
-                        <span class="px-2.5 py-1 rounded bg-black/30 border border-white/[0.02]">LiDAR</span>
-                    </div>
-                </a>
+                        <div class="flex flex-wrap gap-2 pt-6 mt-6 border-t border-white/[0.04] text-xs font-mono text-slate-300">
+                            <span class="px-3 py-1 rounded-md bg-black/60 border border-white/5 group-hover:border-purple-500/30 transition-colors">Autodesk Fusion</span>
+                            <span class="px-3 py-1 rounded-md bg-black/60 border border-white/5 group-hover:border-purple-500/30 transition-colors">3D Additive</span>
+                            <span class="px-3 py-1 rounded-md bg-black/60 border border-white/5 group-hover:border-purple-500/30 transition-colors">LiDAR</span>
+                        </div>
+                    </a>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Passions Section -->
     <section id="passions" class="py-28 px-6 border-t border-white/[0.02] relative z-10 spotlight-target" data-section-id="passions">
         <div class="max-w-6xl mx-auto mb-10 flex items-center space-x-2">
             <div class="h-[2px] w-12 bg-purple-400/50 glyph-bar"></div>
@@ -313,7 +373,7 @@
         <div class="max-w-6xl mx-auto space-y-10">
             <div class="text-center space-y-2 reveal-on-scroll">
                 <div class="inline-block font-mono text-xs uppercase tracking-wider text-slate-400 px-2.5 py-0.5 rounded bg-black/40 border border-white/[0.03]">Interests & Drive</div>
-                <h3 class="text-2xl sm:text-3xl font-semibold text-slate-200 tracking-tight">Beyond the Screen</h3>
+                <h3 class="text-2xl sm:text-3xl font-semibold text-slate-200 tracking-tight animate-pulse-glow">Beyond the Screen</h3>
             </div>
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-5">
                 <div class="glass complex-card p-6 rounded-xl border border-white/[0.02] space-y-3 reveal-on-scroll" style="transition-delay: 100ms;">
@@ -335,18 +395,16 @@
         </div>
     </section>
 
-    <!-- Recognition Section -->
     <section id="recognition" class="py-28 px-6 border-t border-white/[0.02] relative z-10 spotlight-target" data-section-id="recognition">
         <div class="max-w-3xl mx-auto text-center space-y-4 reveal-on-scroll">
             <div class="inline-block font-mono text-xs uppercase tracking-wider text-slate-400 px-2.5 py-0.5 rounded bg-black/40 border border-white/[0.03]">Recognition & Mentorship</div>
-            <h3 class="text-2xl sm:text-3xl font-semibold text-slate-200 tracking-tight">Driven by Discipline & Excellence</h3>
+            <h3 class="text-2xl sm:text-3xl font-semibold text-slate-200 tracking-tight animate-pulse-glow">Driven by Discipline & Excellence</h3>
             <p class="text-slate-400 max-w-md mx-auto text-sm font-light">
                 Commitment to rigorous academic standards, technical execution, and continuous growth under exceptional mentorship.
             </p>
         </div>
     </section>
 
-    <!-- Contact & Footer -->
     <footer id="contact" class="py-20 px-6 border-t border-white/[0.02] bg-dark relative z-10 spotlight-target" data-section-id="contact">
         <div class="max-w-3xl mx-auto mb-10 flex items-center justify-center space-x-1">
             <div class="h-[2px] w-8 bg-purple-400/50 glyph-bar"></div>
@@ -356,7 +414,7 @@
 
         <div class="max-w-3xl mx-auto text-center space-y-6 reveal-on-scroll">
             <div class="inline-block font-mono text-xs uppercase tracking-wider text-slate-400 px-2.5 py-0.5 rounded bg-black/40 border border-white/[0.03]">Get in Touch</div>
-            <h3 class="text-2xl sm:text-3xl font-semibold text-slate-200 tracking-tight">Let's Build Something Extraordinary.</h3>
+            <h3 class="text-2xl sm:text-3xl font-semibold text-slate-200 tracking-tight animate-pulse-glow">Let's Build Something Extraordinary.</h3>
             <p class="text-slate-400 max-w-sm mx-auto text-sm font-light">
                 Inquiries regarding systems code, physical sciences, or audio architectures are always welcome.
             </p>
@@ -383,6 +441,134 @@
     <script>
         lucide.createIcons();
         document.getElementById('year').textContent = new Date().getFullYear();
+
+        const canvas = document.getElementById('magnetic-grid-canvas');
+        const ctx = canvas.getContext('2d');
+
+        let width, height;
+        const spacing = 45;
+        const mouse = { x: -1000, y: -1000, targetX: -1000, targetY: -1000 };
+        
+        let lastMoveTime = Date.now();
+        let isIdle = true; 
+        let particles = [];
+
+        function initParticles() {
+            particles = [];
+            const cols = Math.floor(width / spacing);
+            const rows = Math.floor(height / spacing);
+            const offsetX = (width - cols * spacing) / 2;
+            const offsetY = (height - rows * spacing) / 2;
+
+            for (let i = 0; i <= cols; i++) {
+                for (let j = 0; j <= rows; j++) {
+                    const origX = offsetX + i * spacing;
+                    const origY = offsetY + j * spacing;
+                    
+                    particles.push({
+                        origX: origX,
+                        origY: origY,
+                        currentX: origX + (Math.random() - 0.5) * (width * 0.8),
+                        currentY: origY + (Math.random() - 0.5) * (height * 0.8),
+                        phase: Math.random() * Math.PI * 2,
+                        pulsateSpeed: 0.008 + Math.random() * 0.012,
+                        wanderRadius: 25 + Math.random() * 35,
+                        maxAlpha: Math.random() < 0.25 ? 0.34 : 0.28,
+                        disintegrateProgress: 1.0 
+                    });
+                }
+            }
+        }
+
+        function resize() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+            initParticles();
+        }
+        window.addEventListener('resize', resize);
+        resize();
+
+        window.addEventListener('mousemove', (e) => {
+            mouse.targetX = e.clientX;
+            mouse.targetY = e.clientY;
+            lastMoveTime = Date.now();
+            if (isIdle) {
+                isIdle = false;
+                particles.forEach(p => p.disintegrateProgress = 0);
+            }
+        });
+
+        window.addEventListener('mouseleave', () => {
+            mouse.targetX = -1000;
+            mouse.targetY = -1000;
+        });
+
+        function animateGrid() {
+            mouse.x += (mouse.targetX - mouse.x) * 0.02;
+            mouse.y += (mouse.targetY - mouse.y) * 0.02;
+
+            ctx.clearRect(0, 0, width, height);
+
+            if (!isIdle && Date.now() - lastMoveTime > 2000) {
+                isIdle = true;
+            }
+
+            particles.forEach(p => {
+                p.phase += p.pulsateSpeed;
+
+                let targetX = p.origX;
+                let targetY = p.origY;
+                let alpha = 0.25;
+
+                if (isIdle) {
+                    if (p.disintegrateProgress < 1) {
+                        p.disintegrateProgress += 0.002;
+                    }
+
+                    const driftFactor = Math.min(1, p.disintegrateProgress);
+                    targetX = p.origX + Math.cos(p.phase) * p.wanderRadius * driftFactor;
+                    targetY = p.origY + Math.sin(p.phase * 0.8) * p.wanderRadius * driftFactor;
+
+                    const pulse = (Math.sin(p.phase) + 1) / 2; 
+                    alpha = p.maxAlpha * pulse; 
+                } else {
+                    p.disintegrateProgress = Math.max(0, p.disintegrateProgress - 0.01);
+                    
+                    const dx = mouse.x - p.origX;
+                    const dy = mouse.y - p.origY;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    const maxDist = 170;
+
+                    if (dist < maxDist && mouse.x > 0) {
+                        const force = (1 - dist / maxDist);
+                        targetX += dx * force * 0.35;
+                        targetY += dy * force * 0.35;
+                    }
+                    alpha = 0.25;
+                }
+
+                const easing = isIdle ? 0.006 : 0.02;
+                p.currentX += (targetX - p.currentX) * easing;
+                p.currentY += (targetY - p.currentY) * easing;
+
+                ctx.fillStyle = isIdle ? `rgba(216, 180, 254, ${Math.max(0, alpha)})` : `rgba(255, 255, 255, ${alpha})`;
+                
+                if (isIdle && alpha > 0.05) {
+                    ctx.shadowBlur = 4;
+                    ctx.shadowColor = 'rgba(192, 132, 252, 0.3)';
+                } else {
+                    ctx.shadowBlur = 0;
+                }
+
+                ctx.beginPath();
+                ctx.arc(p.currentX, p.currentY, isIdle ? 1.5 : 1.2, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.shadowBlur = 0;
+            });
+
+            requestAnimationFrame(animateGrid);
+        }
+        animateGrid();
 
         const spotlight = document.getElementById('autonomous-spotlight');
         const sections = document.querySelectorAll('section, footer');
