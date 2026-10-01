@@ -40,6 +40,12 @@
             overflow-x: hidden; 
         }
 
+        /* Video sharpness rendering optimization */
+        video {
+            image-rendering: -webkit-optimize-contrast;
+            image-rendering: crisp-edges;
+        }
+
         /* Clean Grey Professional Grid */
         .bg-grid-pattern {
             background-size: 3rem 3rem;
@@ -163,19 +169,19 @@
     <!-- Ambient Orb -->
     <div id="autonomous-spotlight"></div>
 
-    <!-- Background Timelapse Video Overlay -->
-    <div id="video-bg-container" class="fixed inset-0 z-0 pointer-events-none opacity-0 transition-opacity duration-1000 ease-in-out">
-        <video id="bg-timelapse-video" class="w-full h-full object-cover" loop muted playsinline preload="auto">
+    <!-- Crisp Background Timelapse Video Overlay -->
+    <div id="video-bg-container" class="fixed inset-0 z-0 pointer-events-none opacity-0 transition-opacity duration-1000 ease-in-out overflow-hidden">
+        <video id="bg-timelapse-video" class="w-full h-full object-cover brightness-95 contrast-105" loop muted playsinline preload="auto">
             <source src="WhatsApp Video 2026-09-29 at 15.23.46.mp4" type="video/mp4">
             <source src="WhatsApp Video 2026-09-29 at 15.23.46.MP4" type="video/mp4">
             <source src="WhatsApp Video 2026-09-29 at 15.23.46.mov" type="video/quicktime">
             <source src="WhatsApp Video 2026-09-29 at 15.23.46.MOV" type="video/quicktime">
         </video>
-        <!-- Dark Overlay for Readability -->
-        <div class="absolute inset-0 bg-black/60 backdrop-blur-[2px] pointer-events-none"></div>
+        <!-- Dark Overlay without blur to maximize resolution -->
+        <div class="absolute inset-0 bg-black/60 pointer-events-none"></div>
     </div>
 
-    <!-- Top Navigation / Redirect Bar -->
+    <!-- Top Navigation Bar -->
     <header class="fixed top-0 left-0 right-0 z-50 glass border-b border-white/[0.02]">
         <div id="glyph-header-bar" class="h-[2px] w-full bg-gradient-to-r from-transparent via-[var(--dynamic-accent)] to-transparent shadow-[0_0_10px_var(--dynamic-shadow)] transition-colors duration-500"></div>
         <div class="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
@@ -192,7 +198,7 @@
             <div class="flex items-center space-x-4">
                 <!-- See Us Work Video Toggle Button -->
                 <button id="see-us-work-btn" onclick="toggleWorkVideo()" class="inline-flex items-center space-x-2 px-4 py-2 rounded-full bg-black/60 hover:bg-black text-slate-200 border border-slate-700/60 hover:border-red-500/60 text-xs font-mono transition-all duration-300 shadow-lg group">
-                    <span class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
+                    <span id="btn-dot" class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
                     <span id="btn-text">See Us Work</span>
                     <i data-lucide="play" id="btn-icon" class="w-3.5 h-3.5 text-slate-400 group-hover:text-red-400 transition-colors"></i>
                 </button>
@@ -653,7 +659,7 @@
 
         document.querySelectorAll('.reveal-on-scroll').forEach(el => observer.observe(el));
 
-        // Fixed Video Background Toggle Function with Force Reload & Fallback
+        // Fixed Video Background Toggle Function
         let isVideoActive = false;
 
         async function toggleWorkVideo() {
@@ -661,6 +667,7 @@
             const video = document.getElementById('bg-timelapse-video');
             const btnText = document.getElementById('btn-text');
             const btnIcon = document.getElementById('btn-icon');
+            const btnDot = document.getElementById('btn-dot');
 
             isVideoActive = !isVideoActive;
 
@@ -680,6 +687,10 @@
                     
                     btnText.textContent = 'Hide Video';
                     btnIcon.setAttribute('data-lucide', 'pause');
+                    if(btnDot) {
+                        btnDot.classList.remove('bg-gray-500');
+                        btnDot.classList.add('bg-red-500', 'animate-pulse');
+                    }
                 } catch (error) {
                     console.error("Video playback error:", error);
                     alert("Could not load video. Make sure 'WhatsApp Video 2026-09-29 at 15.23.46.mp4' exists in your root folder.");
@@ -697,6 +708,10 @@
 
                 btnText.textContent = 'See Us Work';
                 btnIcon.setAttribute('data-lucide', 'play');
+                if(btnDot) {
+                    btnDot.classList.remove('bg-red-500', 'animate-pulse');
+                    btnDot.classList.add('bg-gray-500');
+                }
             }
             lucide.createIcons();
         }
