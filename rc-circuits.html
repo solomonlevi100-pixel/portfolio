@@ -169,8 +169,8 @@
             <source src="timelapse.mp4" type="video/mp4">
             <source src="timelapse.webm" type="video/webm">
         </video>
-        <!-- Dark Vignette / Text Contrast Readability Overlay -->
-        <div class="absolute inset-0 bg-black/75 backdrop-blur-[2px]"></div>
+        <!-- Dark Overlay for Readability -->
+        <div class="absolute inset-0 bg-black/60 backdrop-blur-[2px]"></div>
     </div>
 
     <!-- Top Navigation / Redirect Bar -->
@@ -651,7 +651,7 @@
 
         document.querySelectorAll('.reveal-on-scroll').forEach(el => observer.observe(el));
 
-        // Video Background Toggle Function
+        // Fixed Video Background Toggle Function
         let isVideoActive = false;
 
         function toggleWorkVideo() {
@@ -663,41 +663,45 @@
             isVideoActive = !isVideoActive;
 
             if (isVideoActive) {
-                // Play video and slowly fade in container
-                video.play();
-                container.classList.remove('opacity-0', 'pointer-events-none');
-                container.classList.add('opacity-100');
-                
-                // Update Button State
-                btnText.textContent = 'Hide Video';
-                btnIcon.setAttribute('data-lucide', 'pause');
+                // Mute and inline attributes are enforced before play call
+                video.muted = true;
+                video.playsInline = true;
+
+                // Play video with explicit promise handling to bypass browser autoplay blocks
+                video.play().then(() => {
+                    container.classList.remove('opacity-0', 'pointer-events-none');
+                    container.classList.add('opacity-100');
+                    
+                    btnText.textContent = 'Hide Video';
+                    btnIcon.setAttribute('data-lucide', 'pause');
+                    lucide.createIcons();
+                }).catch((error) => {
+                    console.error("Video playback failed:", error);
+                    isVideoActive = false;
+                });
+
             } else {
-                // Slowly fade out container
                 container.classList.remove('opacity-100');
                 container.classList.add('opacity-0', 'pointer-events-none');
                 
-                // Pause video after fade out completes (1 second)
                 setTimeout(() => {
                     if (!isVideoActive) video.pause();
                 }, 1000);
 
-                // Reset Button State
                 btnText.textContent = 'See Us Work';
                 btnIcon.setAttribute('data-lucide', 'play');
+                lucide.createIcons();
             }
-            
-            // Re-render updated Lucide icon
-            lucide.createIcons();
         }
 
-        // 5-Second Transition: Starts Grey, becomes Red, and Stays Red
+        // Color Transition Animation
         function lerp(start, end, amt) {
             return (1 - amt) * start + amt * end;
         }
 
-        const colorStart = { r: 100, g: 116, b: 139 }; // Grey (Slate-500)
-        const colorEnd = { r: 239, g: 68, b: 68 };     // Vibrant Red
-        const duration = 5000; // 5 seconds
+        const colorStart = { r: 100, g: 116, b: 139 }; 
+        const colorEnd = { r: 239, g: 68, b: 68 };     
+        const duration = 5000; 
         let startTime = null;
 
         function updateColorLoop(timestamp) {
