@@ -166,9 +166,10 @@
     <!-- Background Timelapse Video Overlay -->
     <div id="video-bg-container" class="fixed inset-0 z-0 pointer-events-none opacity-0 transition-opacity duration-1000 ease-in-out">
         <video id="bg-timelapse-video" class="w-full h-full object-cover" loop muted playsinline preload="auto">
-            <source src="AU QUASAR - RC Filters & Clippers Practical _ Solomon Levi and 4 more pages - Personal - Microsoft​ Edge 2026-10-01 22-28-39.mp4" type="video/mp4">
-            <source src="AU QUASAR - RC Filters & Clippers Practical _ Solomon Levi and 4 more pages - Personal - Microsoft​ Edge 2026-10-01 22-28-39.webm" type="video/webm">
-            <source src="timelapse.mp4" type="video/mp4">
+            <source src="WhatsApp Video 2026-09-29 at 15.23.46.mp4" type="video/mp4">
+            <source src="WhatsApp Video 2026-09-29 at 15.23.46.MP4" type="video/mp4">
+            <source src="WhatsApp Video 2026-09-29 at 15.23.46.mov" type="video/quicktime">
+            <source src="WhatsApp Video 2026-09-29 at 15.23.46.MOV" type="video/quicktime">
         </video>
         <!-- Dark Overlay for Readability -->
         <div class="absolute inset-0 bg-black/60 backdrop-blur-[2px] pointer-events-none"></div>
@@ -652,7 +653,7 @@
 
         document.querySelectorAll('.reveal-on-scroll').forEach(el => observer.observe(el));
 
-        // Fixed Video Background Toggle Function with Automatic Path Retries
+        // Fixed Video Background Toggle Function with Force Reload & Fallback
         let isVideoActive = false;
 
         async function toggleWorkVideo() {
@@ -680,8 +681,8 @@
                     btnText.textContent = 'Hide Video';
                     btnIcon.setAttribute('data-lucide', 'pause');
                 } catch (error) {
-                    console.error("Video play error:", error);
-                    alert("Unable to play video file. Please check that your video file is named 'AU QUASAR - RC Filters & Clippers Practical _ Solomon Levi and 4 more pages - Personal - Microsoft​ Edge 2026-10-01 22-28-39.mp4' or 'timelapse.mp4' in your root directory.");
+                    console.error("Video playback error:", error);
+                    alert("Could not load video. Make sure 'WhatsApp Video 2026-09-29 at 15.23.46.mp4' exists in your root folder.");
                     isVideoActive = false;
                     btnText.textContent = 'See Us Work';
                     btnIcon.setAttribute('data-lucide', 'play');
