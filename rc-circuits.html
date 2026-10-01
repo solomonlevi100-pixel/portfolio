@@ -165,12 +165,13 @@
 
     <!-- Background Timelapse Video Overlay -->
     <div id="video-bg-container" class="fixed inset-0 z-0 pointer-events-none opacity-0 transition-opacity duration-1000 ease-in-out">
-        <video id="bg-timelapse-video" class="w-full h-full object-cover" loop muted playsinline poster="w1.jpg">
+        <video id="bg-timelapse-video" class="w-full h-full object-cover" loop muted playsinline preload="auto">
+            <source src="AU QUASAR - RC Filters & Clippers Practical _ Solomon Levi and 4 more pages - Personal - Microsoft​ Edge 2026-10-01 22-28-39.mp4" type="video/mp4">
+            <source src="AU QUASAR - RC Filters & Clippers Practical _ Solomon Levi and 4 more pages - Personal - Microsoft​ Edge 2026-10-01 22-28-39.webm" type="video/webm">
             <source src="timelapse.mp4" type="video/mp4">
-            <source src="timelapse.webm" type="video/webm">
         </video>
         <!-- Dark Overlay for Readability -->
-        <div class="absolute inset-0 bg-black/60 backdrop-blur-[2px]"></div>
+        <div class="absolute inset-0 bg-black/60 backdrop-blur-[2px] pointer-events-none"></div>
     </div>
 
     <!-- Top Navigation / Redirect Bar -->
@@ -218,7 +219,7 @@
             </h1>
             
             <p class="text-base sm:text-lg text-slate-400 font-light leading-relaxed">
-                Conducted during the Innovation and Invention Studio class period at AU QUASAR. Exploring frequency responses of Low Pass and High Pass RC networks alongside nonlinear diode clipping characteristics using professional-grade lab instrumentation[cite: 16].
+                Conducted during the Innovation and Invention Studio class period at AU QUASAR. Exploring frequency responses of Low Pass and High Pass RC networks alongside nonlinear diode clipping characteristics using professional-grade lab instrumentation.
             </p>
         </section>
 
@@ -234,7 +235,7 @@
                     <div class="dynamic-text font-mono text-xs uppercase tracking-wider">Digital Multimeter</div>
                     <div class="text-lg font-medium text-slate-200">Fluke 15B+</div>
                     <p class="text-slate-400 text-xs leading-relaxed font-light">
-                        Used for precise voltage, resistance, and continuity checks across components[cite: 16].
+                        Used for precise voltage, resistance, and continuity checks across components.
                     </p>
                 </div>
 
@@ -242,7 +243,7 @@
                     <div class="dynamic-text font-mono text-xs uppercase tracking-wider">Storage Oscilloscope</div>
                     <div class="text-lg font-medium text-slate-200">GW Instek GDS-1102B</div>
                     <p class="text-slate-400 text-xs leading-relaxed font-light">
-                        100MHz 2-Channel Digital Storage Oscilloscope for real-time waveform analysis and voltage measurements[cite: 16].
+                        100MHz 2-Channel Digital Storage Oscilloscope for real-time waveform analysis and voltage measurements.
                     </p>
                 </div>
 
@@ -250,7 +251,7 @@
                     <div class="dynamic-text font-mono text-xs uppercase tracking-wider">DC Power Supply</div>
                     <div class="text-lg font-medium text-slate-200">GW Instek GPE-4323A</div>
                     <p class="text-slate-400 text-xs leading-relaxed font-light">
-                        Multi-channel linear DC power supply providing stable regulated DC voltage to test circuits[cite: 16].
+                        Multi-channel linear DC power supply providing stable regulated DC voltage to test circuits.
                     </p>
                 </div>
 
@@ -258,7 +259,7 @@
                     <div class="dynamic-text font-mono text-xs uppercase tracking-wider">Waveform Generator</div>
                     <div class="text-lg font-medium text-slate-200">OWON AG 1011F</div>
                     <p class="text-slate-400 text-xs leading-relaxed font-light">
-                        Used to supply input sinusoidal, square, and triangular test signals across variable frequency bands[cite: 16].
+                        Used to supply input sinusoidal, square, and triangular test signals across variable frequency bands.
                     </p>
                 </div>
             </div>
@@ -269,24 +270,24 @@
             <div class="glass rounded-2xl p-8 space-y-4 border border-white/[0.02] complex-card reveal-on-scroll">
                 <h3 class="text-xl font-medium text-slate-200">1. RC Low Pass & High Pass Filters</h3>
                 <p class="text-slate-400 text-sm leading-relaxed font-light">
-                    We constructed and analyzed passive Low Pass (LPF) and High Pass (HPF) networks on breadboards using discrete passive components[cite: 16]. By sweeping frequencies on the function generator, we calculated the cutoff frequency ($f_c = \frac{1}{2\pi RC}$), verified passband gain, and observed output attenuation and phase shift[cite: 15, 16].
+                    We constructed and analyzed passive Low Pass (LPF) and High Pass (HPF) networks on breadboards using discrete passive components. By sweeping frequencies on the function generator, we calculated the cutoff frequency ($f_c = \frac{1}{2\pi RC}$), verified passband gain, and observed output attenuation and phase shift.
                 </p>
                 <ul class="list-disc list-inside text-sm text-slate-400 space-y-2 pt-2 font-light">
-                    <li>Component assembly & continuity testing with the Fluke 15B+[cite: 16]</li>
-                    <li>Frequency response and phase shift measurement on the GW Instek GDS-1102B[cite: 15, 16]</li>
-                    <li>Signal synthesis and offset control using the OWON AG1011F waveform generator[cite: 15, 16]</li>
+                    <li>Component assembly & continuity testing with the Fluke 15B+</li>
+                    <li>Frequency response and phase shift measurement on the GW Instek GDS-1102B</li>
+                    <li>Signal synthesis and offset control using the OWON AG1011F waveform generator</li>
                 </ul>
             </div>
 
             <div class="glass rounded-2xl p-8 space-y-4 border border-white/[0.02] complex-card reveal-on-scroll" style="transition-delay: 150ms;">
                 <h3 class="text-xl font-medium text-slate-200">2. Diode Clipper Circuits</h3>
                 <p class="text-slate-400 text-sm leading-relaxed font-light">
-                    We investigated series and parallel diode clipper configurations designed to clip portions of input AC waveforms above or below specific reference voltage thresholds[cite: 16]. Signal clipping levels were monitored live, demonstrating nonlinear circuit behavior and voltage limiting[cite: 16].
+                    We investigated series and parallel diode clipper configurations designed to clip portions of input AC waveforms above or below specific reference voltage thresholds. Signal clipping levels were monitored live, demonstrating nonlinear circuit behavior and voltage limiting.
                 </p>
                 <ul class="list-disc list-inside text-sm text-slate-400 space-y-2 pt-2 font-light">
-                    <li>Positive and negative half-cycle clipping tests[cite: 16]</li>
-                    <li>Voltage threshold adjustments and diode forward-bias verification ($V_D \approx 0.7\text{V}$)[cite: 16]</li>
-                    <li>Live capture of clipped waveforms on the dual-channel oscilloscope[cite: 15, 16]</li>
+                    <li>Positive and negative half-cycle clipping tests</li>
+                    <li>Voltage threshold adjustments and diode forward-bias verification ($V_D \approx 0.7\text{V}$)</li>
+                    <li>Live capture of clipped waveforms on the dual-channel oscilloscope</li>
                 </ul>
             </div>
         </div>
@@ -523,7 +524,7 @@
                     </div>
                     <div class="p-5 space-y-1">
                         <h4 class="font-medium text-slate-200 text-sm font-mono dynamic-text">OWON AG1011F Signal Generator (86.0 kHz)</h4>
-                        <p class="text-xs text-slate-400 font-light">High-frequency sine wave input generation ($86.000\text{ kHz}, 10.00\text{ V}_{\text{pp}}, +2.000\text{V}$ DC offset)[cite: 15].</p>
+                        <p class="text-xs text-slate-400 font-light">High-frequency sine wave input generation ($86.000\text{ kHz}, 10.00\text{ V}_{\text{pp}}, +2.000\text{V}$ DC offset).</p>
                     </div>
                 </div>
 
@@ -540,7 +541,7 @@
                                 <span class="px-1.5 py-0.5 rounded bg-amber-950/80 text-amber-300 border border-amber-500/30">Yellow: Vout</span>
                             </div>
                         </div>
-                        <p class="text-xs text-slate-400 font-light">Dual-channel trace displaying phase shift and amplitude attenuation across the RC filter at $86\text{ kHz}$ (<span class="text-sky-400 font-mono">Blue Line</span> = Input $V_{\text{in}}$, <span class="text-amber-300 font-mono">Yellow Line</span> = Output $V_{\text{out}}$)[cite: 15].</p>
+                        <p class="text-xs text-slate-400 font-light">Dual-channel trace displaying phase shift and amplitude attenuation across the RC filter at $86\text{ kHz}$ (<span class="text-sky-400 font-mono">Blue Line</span> = Input $V_{\text{in}}$, <span class="text-amber-300 font-mono">Yellow Line</span> = Output $V_{\text{out}}$).</p>
                     </div>
                 </div>
 
@@ -551,7 +552,7 @@
                     </div>
                     <div class="p-5 space-y-1">
                         <h4 class="font-medium text-slate-200 text-sm font-mono dynamic-text">OWON AG1011F Signal Generator (7.0 kHz)</h4>
-                        <p class="text-xs text-slate-400 font-light">Lower frequency passband testing ($7.000\text{ kHz}, 10.00\text{ V}_{\text{pp}}, +2.000\text{V}$ offset)[cite: 15].</p>
+                        <p class="text-xs text-slate-400 font-light">Lower frequency passband testing ($7.000\text{ kHz}, 10.00\text{ V}_{\text{pp}}, +2.000\text{V}$ offset).</p>
                     </div>
                 </div>
 
@@ -568,7 +569,7 @@
                                 <span class="px-1.5 py-0.5 rounded bg-amber-950/80 text-amber-300 border border-amber-500/30">Yellow: Vout</span>
                             </div>
                         </div>
-                        <p class="text-xs text-slate-400 font-light">Simultaneous input and output waveform alignment under passband conditions at $7\text{ kHz}$ (<span class="text-sky-400 font-mono">Blue Line</span> = Input $V_{\text{in}}$, <span class="text-amber-300 font-mono">Yellow Line</span> = Output $V_{\text{out}}$)[cite: 15].</p>
+                        <p class="text-xs text-slate-400 font-light">Simultaneous input and output waveform alignment under passband conditions at $7\text{ kHz}$ (<span class="text-sky-400 font-mono">Blue Line</span> = Input $V_{\text{in}}$, <span class="text-amber-300 font-mono">Yellow Line</span> = Output $V_{\text{out}}$).</p>
                     </div>
                 </div>
             </div>
@@ -589,7 +590,7 @@
                     </div>
                     <div class="p-5 space-y-1">
                         <h4 class="font-medium text-slate-200 text-sm font-mono">Workbench Testing Setup</h4>
-                        <p class="text-xs text-slate-400 font-light">GW Instek GDS-1102B Oscilloscope and Power Supply connected to breadboard[cite: 16].</p>
+                        <p class="text-xs text-slate-400 font-light">GW Instek GDS-1102B Oscilloscope and Power Supply connected to breadboard.</p>
                     </div>
                 </div>
 
@@ -600,7 +601,7 @@
                     </div>
                     <div class="p-5 space-y-1">
                         <h4 class="font-medium text-slate-200 text-sm font-mono">Component Verification</h4>
-                        <p class="text-xs text-slate-400 font-light">Measuring exact values using the Fluke 15B+ Digital Multimeter during circuit assembly[cite: 16].</p>
+                        <p class="text-xs text-slate-400 font-light">Measuring exact values using the Fluke 15B+ Digital Multimeter during circuit assembly.</p>
                     </div>
                 </div>
 
@@ -611,7 +612,7 @@
                     </div>
                     <div class="p-5 space-y-1">
                         <h4 class="font-medium text-slate-200 text-sm font-mono">Waveform Analysis</h4>
-                        <p class="text-xs text-slate-400 font-light">Live capture of RC circuit output waveforms displayed on the storage oscilloscope screen[cite: 15, 16].</p>
+                        <p class="text-xs text-slate-400 font-light">Live capture of RC circuit output waveforms displayed on the storage oscilloscope screen.</p>
                     </div>
                 </div>
             </div>
@@ -651,10 +652,10 @@
 
         document.querySelectorAll('.reveal-on-scroll').forEach(el => observer.observe(el));
 
-        // Fixed Video Background Toggle Function
+        // Fixed Video Background Toggle Function with Automatic Path Retries
         let isVideoActive = false;
 
-        function toggleWorkVideo() {
+        async function toggleWorkVideo() {
             const container = document.getElementById('video-bg-container');
             const video = document.getElementById('bg-timelapse-video');
             const btnText = document.getElementById('btn-text');
@@ -663,23 +664,28 @@
             isVideoActive = !isVideoActive;
 
             if (isVideoActive) {
-                // Mute and inline attributes are enforced before play call
                 video.muted = true;
+                video.setAttribute('muted', '');
                 video.playsInline = true;
+                video.setAttribute('playsinline', '');
 
-                // Play video with explicit promise handling to bypass browser autoplay blocks
-                video.play().then(() => {
+                try {
+                    if (video.readyState === 0) {
+                        video.load();
+                    }
+                    await video.play();
                     container.classList.remove('opacity-0', 'pointer-events-none');
                     container.classList.add('opacity-100');
                     
                     btnText.textContent = 'Hide Video';
                     btnIcon.setAttribute('data-lucide', 'pause');
-                    lucide.createIcons();
-                }).catch((error) => {
-                    console.error("Video playback failed:", error);
+                } catch (error) {
+                    console.error("Video play error:", error);
+                    alert("Unable to play video file. Please check that your video file is named 'AU QUASAR - RC Filters & Clippers Practical _ Solomon Levi and 4 more pages - Personal - Microsoft​ Edge 2026-10-01 22-28-39.mp4' or 'timelapse.mp4' in your root directory.");
                     isVideoActive = false;
-                });
-
+                    btnText.textContent = 'See Us Work';
+                    btnIcon.setAttribute('data-lucide', 'play');
+                }
             } else {
                 container.classList.remove('opacity-100');
                 container.classList.add('opacity-0', 'pointer-events-none');
@@ -690,8 +696,8 @@
 
                 btnText.textContent = 'See Us Work';
                 btnIcon.setAttribute('data-lucide', 'play');
-                lucide.createIcons();
             }
+            lucide.createIcons();
         }
 
         // Color Transition Animation
