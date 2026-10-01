@@ -478,11 +478,26 @@
             </div>
         </section>
 
-        <!-- MOVED UP: Laboratory Measurement Section (Signal Generator & Oscilloscope Screenshots with Alternating Glow) -->
+        <!-- Laboratory Measurement Section -->
         <section class="space-y-6 reveal-on-scroll">
-            <div class="flex items-center space-x-2 pb-2 border-b border-white/[0.02]">
-                <div class="h-[2px] w-8 glyph-bar"></div>
-                <h2 class="text-2xl font-semibold text-slate-200">Laboratory Measurement & Oscilloscope Capture</h2>
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-2 border-b border-white/[0.02]">
+                <div class="flex items-center space-x-2">
+                    <div class="h-[2px] w-8 glyph-bar"></div>
+                    <h2 class="text-2xl font-semibold text-slate-200">Laboratory Measurement & Oscilloscope Capture</h2>
+                </div>
+
+                <!-- Global Channel Color Key Indicator -->
+                <div class="flex items-center space-x-4 bg-black/50 px-3.5 py-1.5 rounded-lg border border-white/[0.04] text-xs font-mono">
+                    <span class="text-slate-400">Trace Legend:</span>
+                    <span class="flex items-center space-x-1.5 text-sky-400">
+                        <span class="w-2.5 h-2.5 rounded-full bg-sky-400 inline-block shadow-[0_0_8px_rgba(56,189,248,0.6)]"></span>
+                        <span>Blue Line = Input ($V_{\text{in}}$)</span>
+                    </span>
+                    <span class="flex items-center space-x-1.5 text-amber-300">
+                        <span class="w-2.5 h-2.5 rounded-full bg-amber-300 inline-block shadow-[0_0_8px_rgba(252,211,77,0.6)]"></span>
+                        <span>Yellow Line = Output ($V_{\text{out}}$)</span>
+                    </span>
+                </div>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -502,9 +517,15 @@
                     <div class="bg-black/60 h-64 overflow-hidden border-b border-white/[0.03]">
                         <img src="o1.jpg" alt="GW INSTEEK Oscilloscope High Frequency Attenuation" class="w-full h-full object-cover object-center transition-transform duration-500 hover:scale-105" onError="this.onerror=null; this.src='o1.jpeg';">
                     </div>
-                    <div class="p-5 space-y-1">
-                        <h4 class="font-medium text-slate-200 text-sm font-mono dynamic-text">GW INSTEK Oscilloscope High-Freq Response</h4>
-                        <p class="text-xs text-slate-400 font-light">Dual-channel trace displaying phase shift and amplitude attenuation across the RC filter at $86\text{ kHz}$.</p>
+                    <div class="p-5 space-y-2">
+                        <div class="flex items-center justify-between">
+                            <h4 class="font-medium text-slate-200 text-sm font-mono dynamic-text">GW INSTEK Oscilloscope High-Freq Response</h4>
+                            <div class="flex items-center space-x-2 text-[10px] font-mono">
+                                <span class="px-1.5 py-0.5 rounded bg-sky-950/80 text-sky-400 border border-sky-500/30">Blue: Vin</span>
+                                <span class="px-1.5 py-0.5 rounded bg-amber-950/80 text-amber-300 border border-amber-500/30">Yellow: Vout</span>
+                            </div>
+                        </div>
+                        <p class="text-xs text-slate-400 font-light">Dual-channel trace displaying phase shift and amplitude attenuation across the RC filter at $86\text{ kHz}$ (<span class="text-sky-400 font-mono">Blue Line</span> = Input $V_{\text{in}}$, <span class="text-amber-300 font-mono">Yellow Line</span> = Output $V_{\text{out}}$).</p>
                     </div>
                 </div>
 
@@ -524,15 +545,21 @@
                     <div class="bg-black/60 h-64 overflow-hidden border-b border-white/[0.03]">
                         <img src="o2.jpg" alt="GW INSTEK Oscilloscope Passband Waveform" class="w-full h-full object-cover object-center transition-transform duration-500 hover:scale-105" onError="this.onerror=null; this.src='o2.jpeg';">
                     </div>
-                    <div class="p-5 space-y-1">
-                        <h4 class="font-medium text-slate-200 text-sm font-mono dynamic-text">GW INSTEK Oscilloscope Passband Waveforms</h4>
-                        <p class="text-xs text-slate-400 font-light">Simultaneous input and output waveform alignment under passband conditions at $7\text{ kHz}$.</p>
+                    <div class="p-5 space-y-2">
+                        <div class="flex items-center justify-between">
+                            <h4 class="font-medium text-slate-200 text-sm font-mono dynamic-text">GW INSTEK Oscilloscope Passband Waveforms</h4>
+                            <div class="flex items-center space-x-2 text-[10px] font-mono">
+                                <span class="px-1.5 py-0.5 rounded bg-sky-950/80 text-sky-400 border border-sky-500/30">Blue: Vin</span>
+                                <span class="px-1.5 py-0.5 rounded bg-amber-950/80 text-amber-300 border border-amber-500/30">Yellow: Vout</span>
+                            </div>
+                        </div>
+                        <p class="text-xs text-slate-400 font-light">Simultaneous input and output waveform alignment under passband conditions at $7\text{ kHz}$ (<span class="text-sky-400 font-mono">Blue Line</span> = Input $V_{\text{in}}$, <span class="text-amber-300 font-mono">Yellow Line</span> = Output $V_{\text{out}}$).</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- MOVED DOWN: Session Visuals & Setup Gallery -->
+        <!-- Session Visuals & Setup Gallery -->
         <section class="space-y-6 reveal-on-scroll">
             <div class="flex items-center space-x-2 pb-2 border-b border-white/[0.02]">
                 <div class="h-[2px] w-8 glyph-bar"></div>
