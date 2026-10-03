@@ -434,9 +434,102 @@
                     </div>
                 </figure>
             </div>
+        </section>
 
-            <!-- Diode Clipper Section -->
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 pt-4">
+        <!-- Laboratory Measurement Section (Moved directly after HPF Filter section) -->
+        <section class="space-y-6 reveal-on-scroll">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-2 border-b border-white/[0.02]">
+                <div class="flex items-center space-x-2">
+                    <div class="h-[2px] w-8 glyph-bar"></div>
+                    <h2 class="text-2xl font-semibold text-slate-200">Laboratory Measurement & Oscilloscope Capture</h2>
+                </div>
+
+                <!-- Global Channel Color Key Indicator -->
+                <div class="flex items-center space-x-4 bg-black/50 px-3.5 py-1.5 rounded-lg border border-white/[0.04] text-xs font-mono">
+                    <span class="text-slate-400">Trace Legend:</span>
+                    <span class="flex items-center space-x-1.5 text-sky-400">
+                        <span class="w-2.5 h-2.5 rounded-full bg-sky-400 inline-block shadow-[0_0_8px_rgba(56,189,248,0.6)]"></span>
+                        <span>Blue Line = Input ($V_{\text{in}}$)</span>
+                    </span>
+                    <span class="flex items-center space-x-1.5 text-amber-300">
+                        <span class="w-2.5 h-2.5 rounded-full bg-amber-300 inline-block shadow-[0_0_8px_rgba(252,211,77,0.6)]"></span>
+                        <span>Yellow Line = Output ($V_{\text{out}}$)</span>
+                    </span>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Card 1: w1 (Pair A) -->
+                <div class="glass rounded-xl overflow-hidden border border-white/[0.02] shadow-lg complex-card pulse-pair-a">
+                    <div class="bg-black/60 h-64 overflow-hidden border-b border-white/[0.03]">
+                        <img src="w1.jpg" alt="OWON AG1011F High Frequency Signal Generator" class="w-full h-full object-cover object-center transition-transform duration-500 hover:scale-105" onError="this.onerror=null; this.src='w1.jpeg';">
+                    </div>
+                    <div class="p-5 space-y-1">
+                        <h4 class="font-medium text-slate-200 text-sm font-mono dynamic-text">OWON AG1011F Signal Generator (86.0 kHz)</h4>
+                        <p class="text-xs text-slate-400 font-light">High-frequency sine wave input generation ($86.000\text{ kHz}, 10.00\text{ V}_{\text{pp}}, +2.000\text{V}$ DC offset).</p>
+                    </div>
+                </div>
+
+                <!-- Card 2: o1 (Pair A) -->
+                <div class="glass rounded-xl overflow-hidden border border-white/[0.02] shadow-lg complex-card pulse-pair-a">
+                    <div class="bg-black/60 h-64 overflow-hidden border-b border-white/[0.03]">
+                        <img src="o1.jpg" alt="GW INSTEEK Oscilloscope High Frequency Attenuation" class="w-full h-full object-cover object-center transition-transform duration-500 hover:scale-105" onError="this.onerror=null; this.src='o1.jpeg';">
+                    </div>
+                    <div class="p-5 space-y-2">
+                        <div class="flex items-center justify-between">
+                            <h4 class="font-medium text-slate-200 text-sm font-mono dynamic-text">GW INSTEK Oscilloscope High-Freq Response</h4>
+                            <div class="flex items-center space-x-2 text-[10px] font-mono">
+                                <span class="px-1.5 py-0.5 rounded bg-sky-950/80 text-sky-400 border border-sky-500/30">Blue: Vin</span>
+                                <span class="px-1.5 py-0.5 rounded bg-amber-950/80 text-amber-300 border border-amber-500/30">Yellow: Vout</span>
+                            </div>
+                        </div>
+                        <p class="text-xs text-slate-400 font-light">Dual-channel trace displaying phase shift and amplitude attenuation across the RC filter at $86\text{ kHz}$ (<span class="text-sky-400 font-mono">Blue Line</span> = Input $V_{\text{in}}$, <span class="text-amber-300 font-mono">Yellow Line</span> = Output $V_{\text{out}}$).</p>
+                    </div>
+                </div>
+
+                <!-- Card 3: w2 (Pair B) -->
+                <div class="glass rounded-xl overflow-hidden border border-white/[0.02] shadow-lg complex-card pulse-pair-b">
+                    <div class="bg-black/60 h-64 overflow-hidden border-b border-white/[0.03]">
+                        <img src="w2.jpg" alt="OWON AG1011F Low Frequency Signal Generator" class="w-full h-full object-cover object-center transition-transform duration-500 hover:scale-105" onError="this.onerror=null; this.src='w2.jpeg';">
+                    </div>
+                    <div class="p-5 space-y-1">
+                        <h4 class="font-medium text-slate-200 text-sm font-mono dynamic-text">OWON AG1011F Signal Generator (7.0 kHz)</h4>
+                        <p class="text-xs text-slate-400 font-light">Lower frequency passband testing ($7.000\text{ kHz}, 10.00\text{ V}_{\text{pp}}, +2.000\text{V}$ offset).</p>
+                    </div>
+                </div>
+
+                <!-- Card 4: o2 (Pair B) -->
+                <div class="glass rounded-xl overflow-hidden border border-white/[0.02] shadow-lg complex-card pulse-pair-b">
+                    <div class="bg-black/60 h-64 overflow-hidden border-b border-white/[0.03]">
+                        <img src="o2.jpg" alt="GW INSTEK Oscilloscope Passband Waveform" class="w-full h-full object-cover object-center transition-transform duration-500 hover:scale-105" onError="this.onerror=null; this.src='o2.jpeg';">
+                    </div>
+                    <div class="p-5 space-y-2">
+                        <div class="flex items-center justify-between">
+                            <h4 class="font-medium text-slate-200 text-sm font-mono dynamic-text">GW INSTEK Oscilloscope Passband Waveforms</h4>
+                            <div class="flex items-center space-x-2 text-[10px] font-mono">
+                                <span class="px-1.5 py-0.5 rounded bg-sky-950/80 text-sky-400 border border-sky-500/30">Blue: Vin</span>
+                                <span class="px-1.5 py-0.5 rounded bg-amber-950/80 text-amber-300 border border-amber-500/30">Yellow: Vout</span>
+                            </div>
+                        </div>
+                        <p class="text-xs text-slate-400 font-light">Simultaneous input and output waveform alignment under passband conditions at $7\text{ kHz}$ (<span class="text-sky-400 font-mono">Blue Line</span> = Input $V_{\text{in}}$, <span class="text-amber-300 font-mono">Yellow Line</span> = Output $V_{\text{out}}$).</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Diode Clipper Schematics Section -->
+        <section class="glass rounded-2xl p-8 shadow-xl space-y-8 border border-white/[0.02] reveal-on-scroll">
+            <div class="space-y-2">
+                <div class="flex items-center space-x-2">
+                    <div class="h-[2px] w-12 glyph-bar"></div>
+                    <h2 class="text-2xl font-semibold text-slate-200">Diode Clipper Schematics & Signal Analysis</h2>
+                </div>
+                <p class="text-sm text-slate-400 font-light">
+                    Circuit diagrams and transfer characterizations for Positive Shunt Diode Clipper networks.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
                 <!-- Diode Clipper Schematic -->
                 <figure class="bg-black/40 rounded-xl border border-white/[0.03] p-5 overflow-hidden">
                     <figcaption class="text-sm font-medium text-slate-200 mb-4">
@@ -539,87 +632,6 @@
                     <div class="p-5 space-y-1">
                         <h4 class="font-medium text-slate-200 text-sm font-mono dynamic-text">Clipper Breadboard & Equipment Setup</h4>
                         <p class="text-xs text-slate-400 font-light">Complete workbench configuration including breadboard clipper circuit, power supply, and oscilloscope probes.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Laboratory Measurement Section -->
-        <section class="space-y-6 reveal-on-scroll">
-            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-2 border-b border-white/[0.02]">
-                <div class="flex items-center space-x-2">
-                    <div class="h-[2px] w-8 glyph-bar"></div>
-                    <h2 class="text-2xl font-semibold text-slate-200">Laboratory Measurement & Oscilloscope Capture</h2>
-                </div>
-
-                <!-- Global Channel Color Key Indicator -->
-                <div class="flex items-center space-x-4 bg-black/50 px-3.5 py-1.5 rounded-lg border border-white/[0.04] text-xs font-mono">
-                    <span class="text-slate-400">Trace Legend:</span>
-                    <span class="flex items-center space-x-1.5 text-sky-400">
-                        <span class="w-2.5 h-2.5 rounded-full bg-sky-400 inline-block shadow-[0_0_8px_rgba(56,189,248,0.6)]"></span>
-                        <span>Blue Line = Input ($V_{\text{in}}$)</span>
-                    </span>
-                    <span class="flex items-center space-x-1.5 text-amber-300">
-                        <span class="w-2.5 h-2.5 rounded-full bg-amber-300 inline-block shadow-[0_0_8px_rgba(252,211,77,0.6)]"></span>
-                        <span>Yellow Line = Output ($V_{\text{out}}$)</span>
-                    </span>
-                </div>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <!-- Card 1: w1 (Pair A) -->
-                <div class="glass rounded-xl overflow-hidden border border-white/[0.02] shadow-lg complex-card pulse-pair-a">
-                    <div class="bg-black/60 h-64 overflow-hidden border-b border-white/[0.03]">
-                        <img src="w1.jpg" alt="OWON AG1011F High Frequency Signal Generator" class="w-full h-full object-cover object-center transition-transform duration-500 hover:scale-105" onError="this.onerror=null; this.src='w1.jpeg';">
-                    </div>
-                    <div class="p-5 space-y-1">
-                        <h4 class="font-medium text-slate-200 text-sm font-mono dynamic-text">OWON AG1011F Signal Generator (86.0 kHz)</h4>
-                        <p class="text-xs text-slate-400 font-light">High-frequency sine wave input generation ($86.000\text{ kHz}, 10.00\text{ V}_{\text{pp}}, +2.000\text{V}$ DC offset).</p>
-                    </div>
-                </div>
-
-                <!-- Card 2: o1 (Pair A) -->
-                <div class="glass rounded-xl overflow-hidden border border-white/[0.02] shadow-lg complex-card pulse-pair-a">
-                    <div class="bg-black/60 h-64 overflow-hidden border-b border-white/[0.03]">
-                        <img src="o1.jpg" alt="GW INSTEEK Oscilloscope High Frequency Attenuation" class="w-full h-full object-cover object-center transition-transform duration-500 hover:scale-105" onError="this.onerror=null; this.src='o1.jpeg';">
-                    </div>
-                    <div class="p-5 space-y-2">
-                        <div class="flex items-center justify-between">
-                            <h4 class="font-medium text-slate-200 text-sm font-mono dynamic-text">GW INSTEK Oscilloscope High-Freq Response</h4>
-                            <div class="flex items-center space-x-2 text-[10px] font-mono">
-                                <span class="px-1.5 py-0.5 rounded bg-sky-950/80 text-sky-400 border border-sky-500/30">Blue: Vin</span>
-                                <span class="px-1.5 py-0.5 rounded bg-amber-950/80 text-amber-300 border border-amber-500/30">Yellow: Vout</span>
-                            </div>
-                        </div>
-                        <p class="text-xs text-slate-400 font-light">Dual-channel trace displaying phase shift and amplitude attenuation across the RC filter at $86\text{ kHz}$ (<span class="text-sky-400 font-mono">Blue Line</span> = Input $V_{\text{in}}$, <span class="text-amber-300 font-mono">Yellow Line</span> = Output $V_{\text{out}}$).</p>
-                    </div>
-                </div>
-
-                <!-- Card 3: w2 (Pair B) -->
-                <div class="glass rounded-xl overflow-hidden border border-white/[0.02] shadow-lg complex-card pulse-pair-b">
-                    <div class="bg-black/60 h-64 overflow-hidden border-b border-white/[0.03]">
-                        <img src="w2.jpg" alt="OWON AG1011F Low Frequency Signal Generator" class="w-full h-full object-cover object-center transition-transform duration-500 hover:scale-105" onError="this.onerror=null; this.src='w2.jpeg';">
-                    </div>
-                    <div class="p-5 space-y-1">
-                        <h4 class="font-medium text-slate-200 text-sm font-mono dynamic-text">OWON AG1011F Signal Generator (7.0 kHz)</h4>
-                        <p class="text-xs text-slate-400 font-light">Lower frequency passband testing ($7.000\text{ kHz}, 10.00\text{ V}_{\text{pp}}, +2.000\text{V}$ offset).</p>
-                    </div>
-                </div>
-
-                <!-- Card 4: o2 (Pair B) -->
-                <div class="glass rounded-xl overflow-hidden border border-white/[0.02] shadow-lg complex-card pulse-pair-b">
-                    <div class="bg-black/60 h-64 overflow-hidden border-b border-white/[0.03]">
-                        <img src="o2.jpg" alt="GW INSTEK Oscilloscope Passband Waveform" class="w-full h-full object-cover object-center transition-transform duration-500 hover:scale-105" onError="this.onerror=null; this.src='o2.jpeg';">
-                    </div>
-                    <div class="p-5 space-y-2">
-                        <div class="flex items-center justify-between">
-                            <h4 class="font-medium text-slate-200 text-sm font-mono dynamic-text">GW INSTEK Oscilloscope Passband Waveforms</h4>
-                            <div class="flex items-center space-x-2 text-[10px] font-mono">
-                                <span class="px-1.5 py-0.5 rounded bg-sky-950/80 text-sky-400 border border-sky-500/30">Blue: Vin</span>
-                                <span class="px-1.5 py-0.5 rounded bg-amber-950/80 text-amber-300 border border-amber-500/30">Yellow: Vout</span>
-                            </div>
-                        </div>
-                        <p class="text-xs text-slate-400 font-light">Simultaneous input and output waveform alignment under passband conditions at $7\text{ kHz}$ (<span class="text-sky-400 font-mono">Blue Line</span> = Input $V_{\text{in}}$, <span class="text-amber-300 font-mono">Yellow Line</span> = Output $V_{\text{out}}$).</p>
                     </div>
                 </div>
             </div>
