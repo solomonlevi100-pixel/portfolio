@@ -169,7 +169,7 @@
     <!-- Ambient Orb -->
     <div id="autonomous-spotlight"></div>
 
-    <!-- Crisp Background Timelapse Video Overlay -->
+    <!-- Background Timelapse Video Overlay -->
     <div id="video-bg-container" class="fixed inset-0 z-0 pointer-events-none opacity-0 transition-opacity duration-1000 ease-in-out overflow-hidden">
         <video id="bg-timelapse-video" class="w-full h-full object-cover brightness-95 contrast-105" loop muted playsinline preload="auto">
             <source src="WhatsApp Video 2026-09-29 at 15.23.46.mp4" type="video/mp4">
@@ -177,7 +177,6 @@
             <source src="WhatsApp Video 2026-09-29 at 15.23.46.mov" type="video/quicktime">
             <source src="WhatsApp Video 2026-09-29 at 15.23.46.MOV" type="video/quicktime">
         </video>
-        <!-- Dark Overlay without blur to maximize resolution -->
         <div class="absolute inset-0 bg-black/60 pointer-events-none"></div>
     </div>
 
@@ -196,7 +195,6 @@
 
             <!-- Action Controls -->
             <div class="flex items-center space-x-4">
-                <!-- See Us Work Video Toggle Button -->
                 <button id="see-us-work-btn" onclick="toggleWorkVideo()" class="inline-flex items-center space-x-2 px-4 py-2 rounded-full bg-black/60 hover:bg-black text-slate-200 border border-slate-700/60 hover:border-red-500/60 text-xs font-mono transition-all duration-300 shadow-lg group">
                     <span id="btn-dot" class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
                     <span id="btn-text">See Us Work</span>
@@ -299,7 +297,7 @@
             </div>
         </div>
 
-        <!-- Circuit Diagrams & Frequency Response Plots -->
+        <!-- SECTION 1 & 2: RC FILTER SCHEMATICS & FREQUENCY RESPONSES -->
         <section class="glass rounded-2xl p-8 shadow-xl space-y-8 border border-white/[0.02] reveal-on-scroll">
             <div class="space-y-2">
                 <div class="flex items-center space-x-2">
@@ -307,12 +305,12 @@
                     <h2 class="text-2xl font-semibold text-slate-200">Schematics & Frequency Response Plots</h2>
                 </div>
                 <p class="text-sm text-slate-400 font-light">
-                    Circuit diagrams and frequency response curves for Low Pass, High Pass, and Diode Clipper networks.
+                    Circuit diagrams and frequency response curves for Low Pass and High Pass RC networks.
                 </p>
             </div>
 
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                <!-- RC Low Pass Circuit Schematic -->
+                <!-- 1. RC Low Pass Circuit Schematic -->
                 <figure class="bg-black/40 rounded-xl border border-white/[0.03] p-5 overflow-hidden">
                     <figcaption class="text-sm font-medium text-slate-200 mb-4">
                         1. RC Low-Pass Filter Circuit (LPF)
@@ -347,7 +345,7 @@
                     </p>
                 </figure>
 
-                <!-- RC Low Pass Frequency Response -->
+                <!-- Low Pass Frequency Response -->
                 <figure class="bg-black/40 rounded-xl border border-white/[0.03] p-5 overflow-hidden">
                     <figcaption class="text-sm font-medium text-slate-200 mb-4">
                         Low Pass Frequency Response Curve
@@ -374,7 +372,7 @@
                     </div>
                 </figure>
 
-                <!-- RC High Pass Circuit Schematic -->
+                <!-- 2. RC High Pass Circuit Schematic -->
                 <figure class="bg-black/40 rounded-xl border border-white/[0.03] p-5 overflow-hidden">
                     <figcaption class="text-sm font-medium text-slate-200 mb-4">
                         2. RC High-Pass Filter Circuit (HPF)
@@ -407,7 +405,7 @@
                     </p>
                 </figure>
 
-                <!-- RC High Pass Frequency Response -->
+                <!-- High Pass Frequency Response -->
                 <figure class="bg-black/40 rounded-xl border border-white/[0.03] p-5 overflow-hidden">
                     <figcaption class="text-sm font-medium text-slate-200 mb-4">
                         High Pass Frequency Response Curve
@@ -436,7 +434,7 @@
             </div>
         </section>
 
-        <!-- Laboratory Measurement Section (Moved directly after HPF Filter section) -->
+        <!-- SECTION 3: LABORATORY MEASUREMENT & OSCILLOSCOPE CAPTURE -->
         <section class="space-y-6 reveal-on-scroll">
             <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-2 border-b border-white/[0.02]">
                 <div class="flex items-center space-x-2">
@@ -517,12 +515,12 @@
             </div>
         </section>
 
-        <!-- Diode Clipper Schematics Section -->
+        <!-- SECTION 4: 3. POSITIVE SHUNT DIODE CLIPPER SCHEMATIC & PLOT -->
         <section class="glass rounded-2xl p-8 shadow-xl space-y-8 border border-white/[0.02] reveal-on-scroll">
             <div class="space-y-2">
                 <div class="flex items-center space-x-2">
                     <div class="h-[2px] w-12 glyph-bar"></div>
-                    <h2 class="text-2xl font-semibold text-slate-200">Diode Clipper Schematics & Signal Analysis</h2>
+                    <h2 class="text-2xl font-semibold text-slate-200">3. Positive Shunt Diode Clipper Schematic</h2>
                 </div>
                 <p class="text-sm text-slate-400 font-light">
                     Circuit diagrams and transfer characterizations for Positive Shunt Diode Clipper networks.
@@ -594,7 +592,7 @@
             </div>
         </section>
 
-        <!-- Clipper Circuit Laboratory Photos -->
+        <!-- SECTION 5: DIODE CLIPPER LABORATORY SETUP & WAVEFORMS -->
         <section class="space-y-6 reveal-on-scroll">
             <div class="flex items-center space-x-2 pb-2 border-b border-white/[0.02]">
                 <div class="h-[2px] w-8 glyph-bar"></div>
@@ -637,7 +635,7 @@
             </div>
         </section>
 
-        <!-- Session Visuals & Setup Gallery -->
+        <!-- SECTION 6: SESSION VISUALS & SETUP GALLERY -->
         <section class="space-y-6 reveal-on-scroll">
             <div class="flex items-center space-x-2 pb-2 border-b border-white/[0.02]">
                 <div class="h-[2px] w-8 glyph-bar"></div>
